@@ -4,8 +4,8 @@ export default function getDates(startDate:Date, endDate:Date) {
     let currentDate = moment(startDate);
     let stopDate = moment(endDate);
     while (currentDate <= stopDate) {
-        dateArray.push( moment(currentDate).format('YYYY-MM-DD') )
-        currentDate = moment(currentDate).add(1, 'days');
+        dateArray.push( (currentDate).format('YYYY-MM-DD') )
+        currentDate = (currentDate).add(1, 'days');
     }
     return dateArray;
 }
