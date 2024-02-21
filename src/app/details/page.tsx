@@ -22,7 +22,7 @@ export default function MessSelector(){
             <HostelSelection onSelect={handleHostelSelect}/>
             <div className="text-lg font-semibold">Mess Type <span className="text-[#53C0D3]">*</span></div>
             <Select>
-                <SelectTrigger className="w md:w-[300px] border-[#53C0D3]">
+                <SelectTrigger className="w md:w-[300px] border-[#53C0D3] h-12 text-base md:h-10">
                     <SelectValue placeholder="Select mess type"/>
                 </SelectTrigger>
                 <SelectContent>
