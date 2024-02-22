@@ -3,6 +3,7 @@ import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/c
 import HostelSelection from "@/components/hostel-selection";
 import {Button} from "@/components/ui/button";
 import {useState, useEffect} from "react";
+import {ExclamationTriangleIcon} from '@radix-ui/react-icons';
 import Cookies from "js-cookie";
 
 export default function MessSelector() {
@@ -34,9 +35,9 @@ export default function MessSelector() {
             return;
         }
 
-        Cookies.set('selectedHostel', selectedHostel, { expires: 365 });
-        Cookies.set('selectedMessType', selectedMessType, { expires: 365 });
-        Cookies.set('setupComplete', '1', { expires: 365 }); // indicate setup complete
+        Cookies.set('selectedHostel', selectedHostel, {expires: 365});
+        Cookies.set('selectedMessType', selectedMessType, {expires: 365});
+        Cookies.set('setupComplete', '1', {expires: 365}); // indicate setup complete
         console.log(Cookies.get()); // fixme: remove logging
 
         // fixme: redirect to dashboard
@@ -55,7 +56,8 @@ export default function MessSelector() {
                 <div className="self-center">
                     <div className="text-lg font-semibold">Hostel Type <span className="text-[#53C0D3]">*</span></div>
                     <HostelSelection onSelect={handleHostelSelect}/>
-                    {hostelError && <div className="text-red-500">Please select a hostel type</div>}
+                    {hostelError && <div className="text-red-500 flex items-center"><ExclamationTriangleIcon
+                        className="w-4 h-4 mr-1"/> Please select your hostel</div>}
                 </div>
                 <br/>
                 <div className="">
@@ -70,7 +72,9 @@ export default function MessSelector() {
                             <SelectItem value="non-veg">Non-Veg mess</SelectItem>
                         </SelectContent>
                     </Select>
-                    {messTypeError && <div className="text-red-500">Please select a mess type</div>}
+                    {messTypeError && <div className="text-red-500 flex items-center"><ExclamationTriangleIcon
+                        className="w-4 h-4 mr-1"/> Please
+                        select your mess</div>}
                 </div>
             </div>
             <Button variant={'default'} className="w-[213px] self-center" onClick={handleSubmit}>
