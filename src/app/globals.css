@@ -1,3 +1,18 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base{
+    html{
+        @apply bg-black
+    }
+}
+
+@font-face {
+    font-family: 'Metropolis_reg';
+    src: url(../res/fonts/Metropolis-Regular.otf);
+}
+@font-face {
+    font-family: 'Metropolis_exBold';
+    src: url(../res/fonts/Metropolis-ExtraBold.otf);
+}
