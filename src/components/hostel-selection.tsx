@@ -14,7 +14,7 @@ const HostelSelection = ({onSelect}) => {
         <div className="flex self-center">
             <button
                 className={`flex items-center justify-center border border-gray-300 rounded-lg p-2 m-2 focus:outline-none focus:bg-gray-200 hover:shadow-lg transform transition ${
-                    selectedButton === 'men' ? 'border-[#53C0D3] border-2 shadow-lg' : ''
+                    selectedButton === 'men' ? 'border-[#53C0D3] dark:border-[#98E4FF] border-2 shadow-lg' : ''
                 }`}
                 onClick={() => handleButtonClick('men')}
             >
@@ -25,7 +25,7 @@ const HostelSelection = ({onSelect}) => {
             </button>
             <button
                 className={`flex items-center justify-center border border-gray-300 rounded-lg p-2 m-2 focus:outline-none focus:bg-gray-200 hover:shadow-lg transform transition ${
-                    selectedButton === 'ladies' ? 'border-[#53C0D3] border-2 shadow-lg' : ''
+                    selectedButton === 'ladies' ? 'border-[#53C0D3] dark:border-[#98E4FF] border-2 shadow-lg' : ''
                 }`}
                 onClick={() => handleButtonClick('ladies')}
             >
