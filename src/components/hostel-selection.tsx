@@ -3,7 +3,7 @@ import ManEmoji from "@/public/man.png"
 import WomanEmoji from "@/public/woman.png"
 import Image from "next/image";
 
-const HostelSelection = ({ onSelect }) => {
+const HostelSelection = ({onSelect}) => {
     const [selectedButton, setSelectedButton] = useState(null);
 
     const handleButtonClick = (button) => {
@@ -35,7 +35,7 @@ const HostelSelection = ({ onSelect }) => {
                 </div>
             </button>
         </div>
-);
+    );
 };
 
 export default HostelSelection;
