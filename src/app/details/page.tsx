@@ -8,16 +8,29 @@ import Cookies from "js-cookie";
 export default function MessSelector() {
     const [selectedHostel, setSelectedHostel] = useState(null);
     const [selectedMessType, setSelectedMessType] = useState(null);
+    const [hostelError, setHostelError] = useState(false);
+    const [messTypeError, setMessTypeError] = useState(false);
     const handleHostelSelect = (value) => {
         setSelectedHostel(value);
+        setHostelError(false);
     };
     const handleMessTypeSelect = (value) => {
         setSelectedMessType(value);
+        setMessTypeError(false);
         console.log("Selected Mess Type:", value);
     };
     const handleSubmit = () => {
+        // if (!selectedHostel || !selectedMessType) {
+        //     alert('Please select both hostel type and mess type');
+        //     return;
+        // }
+        if (!selectedHostel) {
+            setHostelError(true);
+        }
+        if (!selectedMessType) {
+            setMessTypeError(true);
+        }
         if (!selectedHostel || !selectedMessType) {
-            alert('Please select both hostel type and mess type');
             return;
         }
 
@@ -42,6 +55,7 @@ export default function MessSelector() {
                 <div className="self-center">
                     <div className="text-lg font-semibold">Hostel Type <span className="text-[#53C0D3]">*</span></div>
                     <HostelSelection onSelect={handleHostelSelect}/>
+                    {hostelError && <div className="text-red-500">Please select a hostel type</div>}
                 </div>
                 <br/>
                 <div className="">
@@ -56,6 +70,7 @@ export default function MessSelector() {
                             <SelectItem value="non-veg">Non-Veg mess</SelectItem>
                         </SelectContent>
                     </Select>
+                    {messTypeError && <div className="text-red-500">Please select a mess type</div>}
                 </div>
             </div>
             <Button variant={'default'} className="w-[213px] self-center" onClick={handleSubmit}>
