@@ -4,7 +4,7 @@ import img from '../res/Images/Character.png'
 import img1 from '../res/Images/Character_light.png'
 export default function Home() {
   return (
-    <div className="flex h-[932px] lg:h-[504.32px] justify-center flex-wrap dark:bg-black transition-all duration-300">
+    <div className="flex h-[100%] lg:h-[100%] justify-center flex-wrap dark:bg-black transition-all duration-300">
       <div className="flex h-[322px] w-[322px] text-black absolute top-[17.7%] left-[11.5%] ds:left-[20.5%] lg:left-[17.5%] lg:top-[20.7%] flex-col justify-center -z-10 dark:z-10 transition-all duration-100">
           <Image 
             src={img}
