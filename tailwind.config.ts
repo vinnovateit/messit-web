@@ -35,6 +35,10 @@ const config = {
       fontFamily:{
         'Metropolis':['Metropolis_reg'],
         'MetropolisB':['Metropolis_exBold']
+      },
+      screens: {
+        'lg':'920px',
+        'ds':'1100px'
       }
     },
   },

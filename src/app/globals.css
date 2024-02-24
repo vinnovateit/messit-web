@@ -2,11 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base{
-    html{
-        @apply bg-black
-    }
-}
 
 @font-face {
     font-family: 'Metropolis_reg';
