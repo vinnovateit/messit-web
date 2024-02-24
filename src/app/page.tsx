@@ -2,6 +2,7 @@ import Image from 'next/image';
 import { useTheme } from 'next-themes';
 import img from '../res/Images/Character.png'
 import img1 from '../res/Images/Character_light.png'
+//Change
 export default function Home() {
   return (
     <div className="flex h-[100%] lg:h-[100%] justify-center flex-wrap dark:bg-black transition-all duration-300">
