@@ -1,12 +1,15 @@
-import React, {useState} from 'react';
+import React, {Dispatch, SetStateAction, useState} from 'react';
 import ManEmoji from "/public/man.png"
 import WomanEmoji from "/public/woman.png"
 import Image from "next/image";
 
-const HostelSelection = ({onSelect}) => {
-    const [selectedButton, setSelectedButton] = useState(null);
+interface HostelSelectionProps {
+    onSelect: Dispatch<SetStateAction<string | null>>;
+}
+const HostelSelection: React.FC<HostelSelectionProps> = ({onSelect}) => {
+    const [selectedButton, setSelectedButton] = useState<string | null>(null);
 
-    const handleButtonClick = (button) => {
+    const handleButtonClick = (button: string) => {
         setSelectedButton(button);
         onSelect(button);
     };

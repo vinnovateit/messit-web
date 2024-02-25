@@ -8,16 +8,16 @@ import Cookies from "js-cookie";
 import {useTheme} from "next-themes"
 
 export default function MessSelector() {
-    const [selectedHostel, setSelectedHostel] = useState(null);
-    const [selectedMessType, setSelectedMessType] = useState(null);
+    const [selectedHostel, setSelectedHostel] = useState<string | null>(null);
+    const [selectedMessType, setSelectedMessType] = useState<string | null>(null);
     const [hostelError, setHostelError] = useState(false);
     const [messTypeError, setMessTypeError] = useState(false);
     const {setTheme} = useTheme()
-    const handleHostelSelect = (value) => {
+    const handleHostelSelect = (value: any) => {
         setSelectedHostel(value);
         setHostelError(false);
     };
-    const handleMessTypeSelect = (value) => {
+    const handleMessTypeSelect = (value:string) => {
         setSelectedMessType(value);
         setMessTypeError(false);
         console.log("Selected Mess Type:", value);
