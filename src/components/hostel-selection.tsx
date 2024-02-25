@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
-import ManEmoji from "@/public/man.png"
-import WomanEmoji from "@/public/woman.png"
+import ManEmoji from "/public/man.png"
+import WomanEmoji from "/public/woman.png"
 import Image from "next/image";
 
 const HostelSelection = ({onSelect}) => {
