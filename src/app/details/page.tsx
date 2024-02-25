@@ -49,14 +49,14 @@ export default function MessSelector() {
     }, [selectedHostel]);
     return (
         <main className="flex min-h-dvh flex-col justify-between p-5 items-center">
-            <div className="text-4xl">First, we need to gather your <span
+            <div className="sm:text-4xl text-3xl text-center">First, we need to gather your <span
                 className="text-[#53C0D3] font-bold dark:text-[#98E4FF]">information</span></div>
 
-            <div className="text-2xl">This is required to find you the right mess menu</div>
+            <div className="text-xl tall:visible invisible">This is required to find you the right mess menu</div>
 
             <div className="">
                 <div className="self-center">
-                    <div className="text-xl font-semibold">Hostel Type <span
+                    <div className="text-xl font-semibold">Hostel Type<span
                         className="text-[#53C0D3] dark:text-[#98E4FF]">*</span></div>
                     <HostelSelection onSelect={handleHostelSelect}/>
                     {hostelError && <div className="text-red-500 flex items-center"><ExclamationTriangleIcon
@@ -64,7 +64,7 @@ export default function MessSelector() {
                 </div>
                 <br/>
                 <div className="">
-                    <div className="text-xl font-semibold">Mess Type <span
+                    <div className="text-xl font-semibold mb-2">Mess Type<span
                         className="text-[#53C0D3] dark:text-[#98E4FF]">*</span></div>
                     <Select onValueChange={(e) => handleMessTypeSelect(e)}>
                         <SelectTrigger

@@ -18,6 +18,9 @@ const config = {
       },
     },
     extend: {
+      screens: {
+        'tall': { 'raw': '(min-height: 700px)' },
+      },
       keyframes: {
         "accordion-down": {
           from: { height: "0" },
