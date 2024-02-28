@@ -28,7 +28,9 @@ export default function RootLayout({
         enableSystem
         disableTransitionOnChange
     >
-        <Sidebar/>
+        <div className="relative top-2 left-2 z-50">
+            <Sidebar/>
+        </div>
         {children}
     </ThemeProvider>
     </body>

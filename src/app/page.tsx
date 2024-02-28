@@ -1,5 +1,7 @@
 import { Button } from "@/components/ui/button";
 import getDates from "@/helpers/getDates";
+import Link from 'next/link';
+
 export default function Home() {
   //tests
   const today=new Date(2024,1,5)
@@ -9,9 +11,11 @@ export default function Home() {
   console.log(arr)
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-        <Button variant={'secondary'}>
+        <Link href={'/details'} >
+        <Button variant={'default'}>
           Hi there
         </Button>
+        </Link>
     </main>
   );
 }

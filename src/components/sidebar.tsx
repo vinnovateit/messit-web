@@ -1,7 +1,7 @@
 'use client';
 import {Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger,} from "@/components/ui/sheet"
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select";
-import {HamburgerMenuIcon} from '@radix-ui/react-icons'
+import {TextAlignLeftIcon} from '@radix-ui/react-icons'
 import {useRouter} from 'next/navigation'
 import {useTheme} from "next-themes";
 import {Button} from "@/components/ui/button";
@@ -27,7 +27,7 @@ const Sidebar = () => {
     };
     return (
         <Sheet>
-            <SheetTrigger><HamburgerMenuIcon/></SheetTrigger>
+            <SheetTrigger><TextAlignLeftIcon className="w-6 h-6"/></SheetTrigger>
             <SheetContent side="left">
                 <SheetHeader>
                     <SheetTitle>General</SheetTitle>
