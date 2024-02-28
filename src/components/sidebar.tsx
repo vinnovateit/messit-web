@@ -6,6 +6,7 @@ import {useRouter} from 'next/navigation'
 import {useTheme} from "next-themes";
 import {Button} from "@/components/ui/button";
 import {usePathname} from 'next/navigation'
+import Cookies from "js-cookie";
 
 const Sidebar = () => {
     const pathname = usePathname()
@@ -17,7 +18,11 @@ const Sidebar = () => {
         {label: "About us", page: "/about"}
     ];
     const handleButtonClick = (page: string) => {
-        console.log(`Button clicked for page: ${page}`);
+        if(page === "/"){
+            Cookies.remove('selectedHostel');
+            Cookies.remove('selectedMessType');
+            Cookies.remove('setupComplete');
+        }
         router.push(page);
     };
     return (
