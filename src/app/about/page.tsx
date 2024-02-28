@@ -16,7 +16,7 @@ const contributors = [
     {
         name: 'Another person',
         imageUrl: '/man.png', // ...temp placeholder
-        role: 'Developer',
+        role: 'Designer',
         linkedin: 'https://www.linkedin.com/',
         github: 'https://github.com/',
     },
@@ -54,7 +54,7 @@ const About = () => {
                                      className="w-32 h-32 mx-auto rounded-full"/>
                                 {contributor.name}
                             </CardTitle>
-                            <CardDescription>Developer</CardDescription>
+                            <CardDescription>{contributor.role}</CardDescription>
                         </CardHeader>
                         <CardContent className="flex space-x-4">
                             <a href={contributor.github} target="_blank"><GitHubLogoIcon className="w-8 h-8"/></a>
