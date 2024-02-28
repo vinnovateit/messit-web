@@ -58,9 +58,11 @@ const Page = () => {
             setLoading(false);
         }
     };
+    useEffect(() => {
+        void fetchAllData();
+    }, [fetchAllData]);
 
     useEffect(() => {
-
         if (navigator.onLine) {
             console.log("online");
             setStatus(true);
@@ -68,7 +70,6 @@ const Page = () => {
             console.log("offline");
             setStatus(false);
         }
-        void fetchAllData();
         void fetchData();
     }, [hostel, mess]);
 
