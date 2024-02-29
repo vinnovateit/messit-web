@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import { useTheme } from 'next-themes';
 import img from '../res/Images/Character.png'
 import img1 from '../res/Images/Character_light.png'
 //Change
