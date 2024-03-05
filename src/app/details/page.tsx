@@ -6,8 +6,12 @@ import {useState, useEffect} from "react";
 import {ExclamationTriangleIcon} from '@radix-ui/react-icons';
 import Cookies from "js-cookie";
 import {useTheme} from "next-themes"
+import {useRouter} from "next/navigation";
+import {toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function MessSelector() {
+    const router=useRouter()
     const [selectedHostel, setSelectedHostel] = useState<string | null>(null);
     const [selectedMessType, setSelectedMessType] = useState<string | null>(null);
     const [hostelError, setHostelError] = useState(false);
@@ -23,30 +27,19 @@ export default function MessSelector() {
         console.log("Selected Mess Type:", value);
     };
     const handleSubmit = () => {
-        // if (!selectedHostel || !selectedMessType) {
-        //     alert('Please select both hostel type and mess type');
-        //     return;
-        // }
-        if (!selectedHostel) {
-            setHostelError(true);
-        }
-        if (!selectedMessType) {
-            setMessTypeError(true);
-        }
-        if (!selectedHostel || !selectedMessType) {
-            return;
-        }
-
-        Cookies.set('selectedHostel', selectedHostel, {expires: 365});
-        Cookies.set('selectedMessType', selectedMessType, {expires: 365});
-        Cookies.set('setupComplete', '1', {expires: 365}); // indicate setup complete
-        console.log(Cookies.get()); // fixme: remove logging
-
-        // fixme: redirect to dashboard
+      if(!selectedHostel || !selectedMessType){
+        toast.error('Select hostel and mess type')
+        if(!selectedHostel)
+        setHostelError(true)
+        if(!selectedMessType)
+        setMessTypeError(true)
+        return
+      }
+      Cookies.set('selectedMessType',selectedMessType)
+      Cookies.set('selectedHostelType',selectedHostel)
+      router.push(`/`)
     };
-    useEffect(() => {
-        console.log("Mess stat (useEffect):", selectedHostel); // async troubles?
-    }, [selectedHostel]);
+  
     return (
         <main className="flex min-h-dvh flex-col justify-between p-5 items-center">
             <div className="sm:text-4xl text-3xl text-center">First, we need to gather your <span

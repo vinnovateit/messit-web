@@ -3,7 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import {ThemeProvider} from "@/components/theme-provider";
 import Sidebar from "@/components/sidebar";
-
+import { ToastContainer } from "react-toastify";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -29,6 +29,7 @@ export default function RootLayout({
         disableTransitionOnChange
     >
         <div className="relative top-2 left-2 z-50">
+          <ToastContainer/>
             <Sidebar/>
         </div>
         {children}
