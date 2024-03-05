@@ -19,9 +19,8 @@ const Sidebar = () => {
     ];
     const handleButtonClick = (page: string) => {
         if(page === "/"){
-            Cookies.remove('selectedHostel');
+            Cookies.remove('selectedHostelType');
             Cookies.remove('selectedMessType');
-            Cookies.remove('setupComplete');
         }
         router.push(page);
     };
