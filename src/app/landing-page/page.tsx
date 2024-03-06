@@ -1,6 +1,6 @@
 import Image from 'next/image';
-import img from '../res/Images/Character.svg'
-import img1 from '../res/Images/Character_light.svg'
+import img from '../../res/Images/Character.svg'
+import img1 from '../../res/Images/Character_light.svg'
 //Change
 export default function LandingPage() {
   return (
