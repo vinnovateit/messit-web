@@ -4,6 +4,7 @@ import "./globals.css";
 import {ThemeProvider} from "@/components/theme-provider";
 import Sidebar from "@/components/sidebar";
 import { ToastContainer } from "react-toastify";
+import ThemeSwitcher from "@/components/ThemeSwitch";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -32,6 +33,7 @@ export default function RootLayout({
           <ToastContainer/>
             <Sidebar/>
         </div>
+        <ThemeSwitcher />
         {children}
     </ThemeProvider>
     </body>

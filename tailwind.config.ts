@@ -45,7 +45,11 @@ const config = {
     screens:{
       mobile:'320px',
       tablet:'728px',
-      laptop:'1024px'
+      laptop:'1024px',
+      'lg':'920px',
+      'ds':'1100px',
+      'sm':'280px',
+      'xl':'430px'
     }
   },
   plugins: [require("tailwindcss-animate")],
