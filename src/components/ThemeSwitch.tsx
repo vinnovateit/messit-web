@@ -18,7 +18,7 @@ export default function ThemeSwitcher(){
 
     return(
         <div className='absolute top-5 right-10'>
-            <div className='absolute h-[20px] w-[20px] dark:z-10 -z-10 hidden dark:flex' onClick={()=>setTheme("light")}>
+            <div className='absolute h-[20px] w-[20px] dark:z-10 -z-10 hidden dark:flex hover:cursor-pointer' onClick={()=>setTheme("light")}>
                 <Image
                     src={img}
                     alt="GFG logo served with static path of public directory"
@@ -26,7 +26,7 @@ export default function ThemeSwitcher(){
                     width={20}
                 />
             </div>
-            <div className='absolute h-[20px] w-[20px] dark:-z-10 dark:hidden z-10' onClick={()=>setTheme("dark")}>
+            <div className='absolute h-[20px] w-[20px] dark:-z-10 dark:hidden z-10 hover:cursor-pointer' onClick={()=>setTheme("dark")}>
                 <Image
                     src={img1}
                     alt="GFG logo served with static path of public directory"
