@@ -4,7 +4,40 @@ import img1 from '../../res/Images/Character_light.svg'
 //Change
 export default function LandingPage() {
   return (
-    <div className="flex tablet:h-[100%] justify-center flex-wrap dark:bg-black transition-all duration-300">
+    <div className='h-screen flex flex-col gap-4 justify-center items-center'>
+      <div>
+      <Image 
+            src={img}
+            alt="Girl thinking about mess menu"
+            height=""
+            width=""
+            className='w-[50vh] md:w-[70vh]' 
+          />
+      </div>
+      <div className='text-5xl'>See your <span className='text-[#53C0D3] font-bold'>Mess Menu</span> on the go</div>
+      <button className=" dark:bg-white bg-black text-white dark:text-black text-center font-extrabold py-3 px-12 rounded-md">
+        Get Started
+      </button>
+    </div>
+  )
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{/* <div className="flex tablet:h-[100%] justify-center flex-wrap dark:bg-black transition-all duration-300">
       <div className="flex tablet:h-[322px] tablet:w-[322px] laptop:w-[322px] mobile:h-[270px] mobile:w-[100%] mobile:top-[12.5%]  text-black absolute tablet:top-[17.7%] justify-center -z-10 dark:z-10 transition-all duration-100">
           <Image 
             src={img}
@@ -65,6 +98,4 @@ export default function LandingPage() {
       <button className=" dark:bg-cyan-200 bg-black text-white dark:text-black text-center tablet:top-[80.57%] tablet:left-[25.11%] ds:left-[54.5%] mobile:top-[75%] absolute w-[49.53%] laptop:w-[25.53%] laptop:left-[37%] laptop:top-[80%] lg:w-[18.5%] font-Metropolis_exBold font-extrabold  py-[3.2%] laptop:px-0 laptop:py-[2%] lg:text-center leading-normal text-[121%] mobile:text-[100%] md:text-[150%]  rounded transition-all duration-100">
         Get Started
       </button>
-    </div>
-  )
-}
+    </div> */}
