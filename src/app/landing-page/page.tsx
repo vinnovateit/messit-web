@@ -62,7 +62,7 @@ export default function LandingPage() {
           on the go 
         </div>
       </div>
-      <button className=" dark:bg-cyan-200 bg-black text-white dark:text-black text-center tablet:top-[80.57%] tablet:left-[25.11%] ds:left-[54.5%] mobile:top-[75%] absolute w-[49.53%] lg:w-[18.5%] font-Metropolis_exBold font-extrabold  py-[3.2%] laptop:px-0 laptop:py-[2%] lg:text-center leading-normal text-[121%] mobile:text-[100%] md:text-[150%]  rounded transition-all duration-100">
+      <button className=" dark:bg-cyan-200 bg-black text-white dark:text-black text-center tablet:top-[80.57%] tablet:left-[25.11%] ds:left-[54.5%] mobile:top-[75%] absolute w-[25.53%] laptop:left-[37%] laptop:top-[80%]  lg:w-[18.5%] font-Metropolis_exBold font-extrabold  py-[3.2%] laptop:px-0 laptop:py-[2%] lg:text-center leading-normal text-[121%] mobile:text-[100%] md:text-[150%]  rounded transition-all duration-100">
         Get Started
       </button>
     </div>
