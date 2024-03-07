@@ -9,13 +9,16 @@ export default function LandingPage() {
       <Image 
             src={img}
             alt="Girl thinking about mess menu"
-            height=""
-            width=""
             className='w-[50vh] md:w-[70vh]' 
           />
       </div>
-      <div className='text-5xl'>See your <span className='text-[#53C0D3] font-bold'>Mess Menu</span> on the go</div>
-      <button className=" dark:bg-white bg-black text-white dark:text-black text-center font-extrabold py-3 px-12 rounded-md">
+      <div className='text-5xl hidden md:block'>See your <span className='text-[#53C0D3] font-bold'>Mess Menu</span> on the go</div>
+      <div className='md:hidden flex flex-col justify-center items-center mb-4'>
+        <div className='text-4xl'>See your</div>
+        <div className='text-5xl text-[#53C0D3] font-bold'>Mess Menu</div>
+        <div className='text-4xl'>on the go</div> 
+      </div>
+      <button className=" dark:bg-[#53C0D3] md:dark:bg-white bg-black text-white dark:text-black text-center font-extrabold py-3 px-12 rounded-md">
         Get Started
       </button>
     </div>
