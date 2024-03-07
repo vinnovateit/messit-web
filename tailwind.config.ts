@@ -13,14 +13,14 @@ const config = {
     container: {
       center: true,
       padding: "2rem",
-      screens: {
-        "2xl": "1400px",
-      },
+      // screens: {
+      //   "2xl": "1400px",
+      // },
     },
     extend: {
-      screens: {
-        'tall': { 'raw': '(min-height: 700px)' },
-      },
+      // screens: {
+      //   'tall': { 'raw': '(min-height: 700px)' },
+      // },
       keyframes: {
         "accordion-down": {
           from: { height: "0" },
@@ -42,11 +42,11 @@ const config = {
       },
       
     },
-    screens:{
-      mobile:'320px',
-      tablet:'728px',
-      laptop:'1024px'
-    }
+    // screens:{
+    //   mobile:'320px',
+    //   tablet:'728px',
+    //   laptop:'1024px'
+    // }
   },
   plugins: [require("tailwindcss-animate")],
 } satisfies Config
