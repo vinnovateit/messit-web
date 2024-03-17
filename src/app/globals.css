@@ -10,3 +10,19 @@
     font-family: 'Metropolis_exBold';
     src: url(../res/fonts/Metropolis-ExtraBold.otf);
 }
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.no-scrollbar {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+html{
+    overflow-x: hidden;
+}
+*{
+    margin: 0;
+    padding: 0;
+}
