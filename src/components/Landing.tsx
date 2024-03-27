@@ -1,32 +1,22 @@
 'use client'
 import Image from 'next/image';
-import img from '../../../public/Character.svg'
-import img1 from '../../../public/Character_light.svg'
+import img from '../../public/Character.svg'
+import img1 from '../../public/Character_light.svg'
 import Link from "next/link";
 import {useRouter} from "next/navigation";
-import {useEffect} from "react";
-import Cookies from "js-cookie";
 import ThemeSwitcher from "@/components/ThemeSwitch";
 //Change
 export default function LandingPage() {
   const router = useRouter();
-  useEffect(() => {
-    const selectedHostel = Cookies.get('selectedHostelType');
-    const selectedMessType = Cookies.get('selectedMessType');
-
-    if (selectedHostel && selectedMessType) {
-      router.push('/');
-    }
-  }, [router]);
   return (
     <div className='h-screen flex flex-col gap-4 justify-center items-center'>
       <ThemeSwitcher />
       <div>
-      <Image
-            src={img}
-            alt="Girl thinking about mess menu"
-            className='w-[50vh] md:w-[70vh]'
-          />
+        <Image
+          src={img}
+          alt="Girl thinking about mess menu"
+          className='w-[50vh] md:w-[70vh]'
+        />
       </div>
       <div className='text-5xl hidden md:block'>See your <span className='text-[#53C0D3] font-bold'>Mess Menu</span> on the go</div>
       <div className='md:hidden flex flex-col justify-center items-center mb-4'>
