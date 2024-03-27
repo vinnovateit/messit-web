@@ -6,6 +6,7 @@ import Link from "next/link";
 import {useRouter} from "next/navigation";
 import {useEffect} from "react";
 import Cookies from "js-cookie";
+import ThemeSwitcher from "@/components/ThemeSwitch";
 //Change
 export default function LandingPage() {
   const router = useRouter();
@@ -19,6 +20,7 @@ export default function LandingPage() {
   }, [router]);
   return (
     <div className='h-screen flex flex-col gap-4 justify-center items-center'>
+      <ThemeSwitcher />
       <div>
       <Image
             src={img}

@@ -31,9 +31,9 @@ export default function RootLayout({
     >
         <div className="relative top-2 left-2 z-50">
           <ToastContainer/>
-            <Sidebar/>
+          {/*<Sidebar/>*/}
         </div>
-        <ThemeSwitcher />
+        {/*<ThemeSwitcher />*/}
         {children}
     </ThemeProvider>
     </body>

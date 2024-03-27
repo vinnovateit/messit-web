@@ -23,7 +23,7 @@ export default function ThemeSwitcher() {
   };
 
   return (
-    <div className="fixed top-5 right-10 flex items-center">
+    <div className="fixed top-3 right-3 flex items-center">
       <button
         className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200"
         onClick={toggleTheme}
