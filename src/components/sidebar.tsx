@@ -13,8 +13,8 @@ const Sidebar = () => {
     const router = useRouter()
     const {setTheme, theme} = useTheme();
     const buttons = [
-        {label: "Messit", page: "/details"}, //todo: change after calendar added
-        {label: "Reset", page: "/"},
+        {label: "Messit", page: "/"},
+        {label: "Reset", page: "/landing-page"},
         {label: "About us", page: "/about"}
     ];
     const handleButtonClick = (page: string) => {

@@ -2,8 +2,20 @@
 import Calendar from "@/components/Calendar";
 import Link from 'next/link';
 import Card from "@/components/ui/Card";
+import { useRouter } from 'next/navigation'
+import {useEffect} from "react";
+import Cookies from "js-cookie";
 //todo:read data from cookies here
 export default function Home() {
+  const router = useRouter();
+  useEffect(() => {
+    const selectedHostel = Cookies.get('selectedHostelType');
+    const selectedMessType = Cookies.get('selectedMessType');
+
+    if (!selectedHostel && !selectedMessType) {
+      router.push('/landing-page');
+    }
+  }, [router]);
   return (
     <main className="flex min-h-screen flex-col items-center justify-around p-16">
       <div className="w-full flex flex-col justify-between items-start text-[3rem] gap-[1rem]">
