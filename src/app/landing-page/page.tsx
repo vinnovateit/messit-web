@@ -1,7 +1,7 @@
 'use client'
 import Image from 'next/image';
-import img from '../../res/Images/Character.svg'
-import img1 from '../../res/Images/Character_light.svg'
+import img from '../../../public/Character.svg'
+import img1 from '../../../public/Character_light.svg'
 import Link from "next/link";
 import {useRouter} from "next/navigation";
 import {useEffect} from "react";
