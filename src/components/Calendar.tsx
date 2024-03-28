@@ -35,22 +35,22 @@ function handleArrowClicks(e:any){
    
 }
 
-return (<section className="w-full flex  px-containerPaddingX gap-[2rem]">
-    <div  className="flex justify-center items-center text-center px-[1rem] py-[1rem] text-[1.3rem] min-w-[74px] aspect-square rounded-[100%]  border-[#98E4FF] " data-arrow="left" onClick={handleArrowClicks} ref={leftRef}>
+return (<section className="w-full flex  laptop:px-containerPaddingX gap-[2rem]">
+    <div  className="text-center laptop:px-[1rem] laptop:py-[1rem] text-[1.3rem] mobile:min-w-[32px] laptop:min-w-[74px] aspect-square rounded-[100%] mobile:h-[32px] laptop:h-auto  bg-[#98E4FF]  flex justify-center items-center" data-arrow="left" onClick={handleArrowClicks} ref={leftRef}>
            <Image width={48} height={48} src={"/icons/right.png"} alt="" className="  scale-x-[-1]" data-arrow="left" onClick={handleArrowClicks}/>
          </div>
    <div className="flex overflow-x-scroll no-scrollbar gap-[2rem] " ref={scrollRef}>
    
     {dayArray.map((day,index)=>{
      return(
-         <div key={dateArray[index]} className="text-center px-[1rem] py-[1rem] text-[1.3rem] min-w-[74px] aspect-square rounded-[100%]    text-white">
+         <div key={dateArray[index]} className="text-center laptop:px-[1rem] laptop:py-[1rem] laptop:text-[1.3rem] laptop:min-w-[74px] aspect-square rounded-[100%]    text-white">
              {day.substring(0,3)}
          </div>
      )
  })}
  
    </div>
-   <div className="text-center px-[1rem] py-[1rem] text-[1.3rem] min-w-[74px] aspect-square rounded-[100%]  border-[#98E4FF]  flex justify-center items-center" data-arrow="right" onClick={handleArrowClicks} ref={rightRef}>
+   <div className="text-center laptop:px-[1rem] laptop:py-[1rem] text-[1.3rem] mobile:min-w-[32px] laptop:min-w-[74px] aspect-square rounded-[100%] mobile:h-[32px] laptop:h-auto  bg-[#98E4FF]  flex justify-center items-center" data-arrow="right" onClick={handleArrowClicks} ref={rightRef}>
    <Image width={48} height={48} src={"/icons/right.png"} alt="" onClick={handleArrowClicks}  data-arrow="right" />
          </div>
 </section>)
