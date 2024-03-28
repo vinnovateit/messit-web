@@ -1,6 +1,7 @@
 'use client'
 import Calendar from "@/components/Calendar";
-import Card from "@/components/ui/Card";
+// import Card from "@/components/ui/Card";
+import MenuCard from "@/components/MenuCard";
 import {useEffect, useState} from "react";
 import Cookies from "js-cookie";
 import Sidebar from "@/components/sidebar";
@@ -34,10 +35,10 @@ export default function Home() {
       <Calendar/>
       <section className="grid laptop:grid-cols-2 justify-around items-center w-full gap-[2rem] flex-wrap mobile:grid-cols-1">
         {/*todo: load data dynamically!!*/}
-        <Card foodItems="Idli, Sambar, Chutney" meal="Breakfast" timing="7:00 AM - 9:00 AM" />
-        <Card foodItems="Idli, Sambar, Chutney" meal="Breakfast" timing="7:00 AM - 9:00 AM" />
-        <Card foodItems="Idli, Sambar, Chutney" meal="Breakfast" timing="7:00 AM - 9:00 AM" />
-        <Card foodItems="Idli, Sambar, Chutney" meal="Breakfast" timing="7:00 AM - 9:00 AM" />
+        <MenuCard foodItems="Idli, Sambar, Chutney" meal="Breakfast" timing="7:00 AM - 9:00 AM" />
+        <MenuCard foodItems="Idli, Sambar, Chutney" meal="Breakfast" timing="7:00 AM - 9:00 AM" />
+        <MenuCard foodItems="Idli, Sambar, Chutney" meal="Breakfast" timing="7:00 AM - 9:00 AM" />
+        <MenuCard foodItems="Idli, Sambar, Chutney" meal="Breakfast" timing="7:00 AM - 9:00 AM" />
 
       </section>
     </main>
