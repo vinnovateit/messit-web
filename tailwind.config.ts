@@ -42,11 +42,11 @@ const config = {
       },
       
     },
-    // screens:{
-    //   mobile:'320px',
-    //   tablet:'728px',
-    //   laptop:'1024px'
-    // }
+    screens:{
+      mobile:'320px',
+      tablet:'728px',
+      laptop:'1024px'
+    }
   },
   plugins: [require("tailwindcss-animate")],
 } satisfies Config
