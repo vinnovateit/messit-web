@@ -62,7 +62,7 @@ export default function Calendar() {
       className="text-center laptop:px-[1rem] laptop:py-[1rem] text-[1.3rem] mobile:min-w-[32px] laptop:min-w-[74px] aspect-square rounded-[100%] mobile:h-[32px] laptop:h-auto  bg-[#53C0D3] dark:bg-[#98E4FF]  flex justify-center items-center"
       data-arrow="right" onClick={handleArrowClicks} ref={rightRef}>
       {/*<Image width={48} height={48} src={"/icons/right.png"} alt="" onClick={handleArrowClicks} data-arrow="right"/>*/}
-      <CaretRightIcon className="w-7 h-7 text-black" onClick={handleArrowClicks} data-arrow="left"/>
+      <CaretRightIcon className="w-7 h-7 text-black" onClick={handleArrowClicks} data-arrow="right"/>
     </div>
   </section>)
 
