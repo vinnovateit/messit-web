@@ -28,15 +28,17 @@ export default function Home() {
         <Sidebar setShowMainContent={setShowMainContent}/>
       </div>
       <div className="w-full flex flex-col justify-between items-start text-[3rem] gap-[2rem]">
-        <h1 className="w-full text-center mobile:text-[2rem] mobile:mt-[2rem]"> LH- <span className="font-bold text-[#53C0D3]">Special Mess</span></h1>
+        <h1 className="w-full text-center mobile:text-[2rem] mobile:mt-[2rem]"> LH- <span className="font-bold text-[#53C0D3] dark:text-[#98E4FF]">Special Mess</span></h1>
         <h3 className="mobile:text-[2rem] mobile:w-full mobile:text-center"><b>March </b>2024</h3>
       </div>
       <Calendar/>
       <section className="grid laptop:grid-cols-2 justify-around items-center w-full gap-[2rem] flex-wrap mobile:grid-cols-1">
-        <Card foodItems={[]} meal="" timing=""/>
-        <Card foodItems={[]} meal="" timing=""/>
-        <Card foodItems={[]} meal="" timing=""/>
-        <Card foodItems={[]} meal="" timing=""/>
+        {/*todo: load data dynamically!!*/}
+        <Card foodItems="Idli, Sambar, Chutney" meal="Breakfast" timing="7:00 AM - 9:00 AM" />
+        <Card foodItems="Idli, Sambar, Chutney" meal="Breakfast" timing="7:00 AM - 9:00 AM" />
+        <Card foodItems="Idli, Sambar, Chutney" meal="Breakfast" timing="7:00 AM - 9:00 AM" />
+        <Card foodItems="Idli, Sambar, Chutney" meal="Breakfast" timing="7:00 AM - 9:00 AM" />
+
       </section>
     </main>
   );
