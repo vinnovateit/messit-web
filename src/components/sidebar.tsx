@@ -18,7 +18,7 @@ const Sidebar = ({ setShowMainContent }: SidebarProps) => {
   const buttons = [
     {label: "Messit", page: "/"},
     {label: "Reset", page: "/reset"},
-    {label: "About us", page: "/about"}
+    // {label: "About us", page: "/about"}
   ];
 
   const handleButtonClick = (page: string) => {
