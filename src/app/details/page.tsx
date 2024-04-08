@@ -36,8 +36,8 @@ export default function MessSelector() {
         setMessTypeError(true)
       return
     }
-    Cookies.set('selectedMessType', selectedMessType)
-    Cookies.set('selectedHostelType', selectedHostel)
+    Cookies.set('selectedMessType', selectedMessType, { expires: 365 })
+    Cookies.set('selectedHostelType', selectedHostel, { expires: 365 })
     router.push(`/`)
   };
 
