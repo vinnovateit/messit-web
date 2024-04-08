@@ -30,20 +30,11 @@ export default function Home() {
       return
     }
     setCurrent(api.selectedScrollSnap() + 1)
-
     api.on("select", () => {
       setCurrent(api.selectedScrollSnap() + 1)
-      setCurrentDateIndex(api.selectedScrollSnap())
+      // setCurrentDateIndex(api.selectedScrollSnap())
     })
   }, [api])
-
-  useEffect(() => {
-    if (!api) {
-      return
-    }
-    api.scrollTo(currentDateIndex);
-    console.log('currentDateIndex:', currentDateIndex)
-  }, [api,currentDateIndex]);
 
   useEffect(() => {
     const selectedHostel = Cookies.get('selectedHostelType');
@@ -68,7 +59,6 @@ export default function Home() {
     console.log('Selected date:', date);
   };
   const onSelectDayChange = (index: number) => {
-    // setCurrentDateIndex(index);
     if (api) {
       api.scrollTo(index);
     }
@@ -110,16 +100,6 @@ export default function Home() {
           ))}
         </CarouselContent>
       </Carousel>
-
-      {/*<section*/}
-      {/*  className="grid laptop:grid-cols-2 justify-around items-center w-full gap-[2rem] flex-wrap mobile:grid-cols-1">*/}
-      {/*  /!*todo: load data dynamically!!*!/*/}
-      {/*  <MenuCard foodItems="Idli, Sambar, Chutney" meal="Breakfast" timing="7:00 AM - 9:00 AM"/>*/}
-      {/*  <MenuCard foodItems="Idli, Sambar, Chutney" meal="Breakfast" timing="7:00 AM - 9:00 AM"/>*/}
-      {/*  <MenuCard foodItems="Idli, Sambar, Chutney" meal="Breakfast" timing="7:00 AM - 9:00 AM" />*/}
-      {/*  <MenuCard foodItems="Idli, Sambar, Chutney" meal="Breakfast" timing="7:00 AM - 9:00 AM" />*/}
-
-      {/*</section>*/}
     </main>
   );
 }

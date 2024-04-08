@@ -9,6 +9,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel"
+import { type CarouselApi } from "@/components/ui/carousel"
 
 interface CalendarProps {
   onDateSelect: (date: string) => void;
@@ -20,16 +21,9 @@ export default function Calendar({ onDateSelect, currentDateIndex, onSelectDayCh
   const [dayArray, setDayArray] = useState<string[]>([]);
   const [dateArray, setDateArray] = useState<string[]>([]);
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
+  const [api, setApi] = useState<CarouselApi>()
   // const [currentDateIndexState, setCurrentDateIndexState] = useState<number>(currentDateIndex);
 
-  // useEffect(() => {
-  //   const dates = getDates();
-  //   setDayArray(getDays(dates));
-  //   setDateArray(dates);
-  //   const today = new Date().toISOString().slice(0, 10);
-  //   const currentDateIndex = dates.findIndex(date => date === today);
-  //   setSelectedDate(dates[currentDateIndex]);
-  // }, []);
 
   useEffect(() => {
     const dates = getDates();
