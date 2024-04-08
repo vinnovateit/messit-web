@@ -12,17 +12,15 @@ import {
 
 interface CalendarProps {
   onDateSelect: (date: string) => void;
-}
-interface CalendarProps {
-  onDateSelect: (date: string) => void;
   currentDateIndex: number;
+  onSelectDayChange: (index: number) => void;
 }
 
-export default function Calendar({ onDateSelect, currentDateIndex }: CalendarProps) {
+export default function Calendar({ onDateSelect, currentDateIndex, onSelectDayChange }: CalendarProps) {
   const [dayArray, setDayArray] = useState<string[]>([]);
   const [dateArray, setDateArray] = useState<string[]>([]);
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
-  const [currentDateIndexState, setCurrentDateIndexState] = useState<number>(currentDateIndex);
+  // const [currentDateIndexState, setCurrentDateIndexState] = useState<number>(currentDateIndex);
 
   // useEffect(() => {
   //   const dates = getDates();
@@ -39,13 +37,14 @@ export default function Calendar({ onDateSelect, currentDateIndex }: CalendarPro
     setDateArray(dates);
 
     // Update the currentDateIndex state if the prop changes
-    setCurrentDateIndexState(currentDateIndex);
+    // setCurrentDateIndexState(currentDateIndex);
     setSelectedDate(dates[currentDateIndex]);
   }, [currentDateIndex]);
 
   const handleDateSelect = (date: string) => {
     setSelectedDate(date);
-    onDateSelect(date);
+    onDateSelect(date); //todo: unneeded?
+    onSelectDayChange(dateArray.indexOf(date));
   };
 
   return (

@@ -9,6 +9,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel"
+import { type CarouselApi } from "@/components/ui/carousel"
 
 import MenuCard from "@/components/MenuCard";
 import {useEffect, useState} from "react";
@@ -21,6 +22,28 @@ export default function Home() {
   const [showMainContent, setShowMainContent] = useState(false);
   const [currentDateIndex, setCurrentDateIndex] = useState<number>(0);
   const [dateArray, setDateArray] = useState<string[]>([]);
+  const [api, setApi] = useState<CarouselApi>()
+  const [current, setCurrent] = useState(0)
+
+  useEffect(() => {
+    if (!api) {
+      return
+    }
+    setCurrent(api.selectedScrollSnap() + 1)
+
+    api.on("select", () => {
+      setCurrent(api.selectedScrollSnap() + 1)
+      setCurrentDateIndex(api.selectedScrollSnap())
+    })
+  }, [api])
+
+  useEffect(() => {
+    if (!api) {
+      return
+    }
+    api.scrollTo(currentDateIndex);
+    console.log('currentDateIndex:', currentDateIndex)
+  }, [api,currentDateIndex]);
 
   useEffect(() => {
     const selectedHostel = Cookies.get('selectedHostelType');
@@ -44,6 +67,13 @@ export default function Home() {
   const handleDateSelect = (date: string) => {
     console.log('Selected date:', date);
   };
+  const onSelectDayChange = (index: number) => {
+    // setCurrentDateIndex(index);
+    if (api) {
+      api.scrollTo(index);
+    }
+    console.log('Select date index:', index)
+  };
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-around laptop:p-16 gap-[2rem] mobile:p-8">
@@ -54,8 +84,8 @@ export default function Home() {
         <h1 className="w-full text-center mobile:text-[2rem] mobile:mt-[2rem]"> LH- <span className="font-bold text-[#53C0D3] dark:text-[#98E4FF]">Special Mess</span></h1>
         <h3 className="mobile:text-[2rem] mobile:w-full mobile:text-center"><b>March </b>2024</h3>
       </div>
-      <Calendar onDateSelect={handleDateSelect} currentDateIndex={currentDateIndex} />
-      <Carousel className="w-full"
+      <Calendar onDateSelect={handleDateSelect} currentDateIndex={currentDateIndex} onSelectDayChange={onSelectDayChange}/>
+      <Carousel className="w-full" setApi={setApi}
                 opts={{
                   startIndex: currentDateIndex,
                 }}>
@@ -68,7 +98,7 @@ export default function Home() {
                     <section
                       className="grid laptop:grid-cols-2 justify-around items-center w-full gap-[2rem] flex-wrap mobile:grid-cols-1">
                       {/*todo: load data dynamically!!*/}
-                      <MenuCard foodItems="Idli, Sambar, Chutney" meal="Breakfast" timing="7:00 AM - 9:00 AM"/>
+                      <MenuCard foodItems="Idli, Sambar, Chutney" meal={"Breakfast" + index} timing="7:00 AM - 9:00 AM"/>
                       <MenuCard foodItems="Idli, Sambar, Chutney" meal="Breakfast" timing="7:00 AM - 9:00 AM"/>
                       <MenuCard foodItems="Idli, Sambar, Chutney" meal="Breakfast" timing="7:00 AM - 9:00 AM"/>
                       <MenuCard foodItems="Idli, Sambar, Chutney" meal="Breakfast" timing="7:00 AM - 9:00 AM"/>
