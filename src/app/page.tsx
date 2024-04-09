@@ -34,9 +34,42 @@ export default function Home() {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get(`http://localhost:8000/?hostel=${hostel}&mess=${mess}`);
+      const selectedHostel = Cookies.get('selectedHostelType');
+      const selectedMessType = Cookies.get('selectedMessType');
+      let hostelParam = 1;
+      let messParam = 1;
+
+      if (selectedHostel) {
+        switch (selectedHostel) {
+          case 'men':
+            hostelParam = 1;
+            break;
+          case 'ladies':
+            hostelParam = 2;
+            break;
+          default:
+            hostelParam = 1;
+        }
+      }
+
+      if (selectedMessType) {
+        switch (selectedMessType) {
+          case 'special':
+            messParam = 1;
+            break;
+          case 'veg':
+            messParam = 2;
+            break;
+          case 'non-veg':
+            messParam = 3;
+            break;
+          default:
+            messParam = 1;
+        }
+      }
+
+      const response = await axios.get(`http://localhost:8000/?hostel=${hostelParam}&mess=${messParam}`);
       setData(response.data);
-      // setData(jsonData);
     } catch (error) {
       setError('Error fetching data');
     }
