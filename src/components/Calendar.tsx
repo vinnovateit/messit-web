@@ -56,18 +56,18 @@ export default function Calendar({ onDateSelect, currentDateIndex, onSelectDayCh
               }}>
       <CarouselContent className="-ml-1">
         {Array.from(dateArray).map((_, index) => (
-          <CarouselItem key={index} className="pl-1 md:basis-1/3 lg:basis-1/3 max-w-20">
+          <CarouselItem key={index} className="pl-1 md:basis-1/3 lg:basis-1/3 max-w-14 tablet:max-w-20">
             <div className="p-1">
               <button
                 onClick={() => {
                   handleDateSelect(dateArray[index]);
                 }}
-                className={`flex flex-col items-center justify-center border border-[#53C0D3] dark:border-[#98E4FF] rounded-full aspect-square w-14 h-14 ${
+                className={`flex flex-col items-center justify-center border border-[#53C0D3] dark:border-[#98E4FF] rounded-full aspect-square tablet:w-14 tablet:h-14 w-[43px] h-[43px] ${
                   selectedDate === dateArray[index] ? 'bg-[#53C0D3] dark:bg-[#98E4FF] text-black transform transition' : ''
                 }`}
               >
-                <div className="text-[11px]">{dayArray[index]}</div>
-                <div className="text-2xl font-semibold">{index + 1}</div>
+                <div className="tablet:text-xs text-[11px] mt-1">{dayArray[index]}</div>
+                <div className="-mt-1 tablet:mt-0 text-lg font-semibold">{index + 1}</div>
               </button>
             </div>
           </CarouselItem>
