@@ -34,13 +34,10 @@ export default function Calendar({ onDateSelect, currentDateIndex, onSelectDayCh
     // setCurrentDateIndexState(currentDateIndex);
     setSelectedDate(dates[currentDateIndex]);
     if (api) {
-      // api.scrollTo(currentDateIndex);
-      console.log(api.slidesInView())
       const slidesInView = api.slidesInView();
       if(!slidesInView.includes(currentDateIndex)) {
         api.scrollTo(currentDateIndex);
       }
-      console.log('scrolling date to', currentDateIndex);
     }
   }, [api, currentDateIndex]);
 

@@ -1,7 +1,5 @@
 'use client'
 import Calendar from "@/components/Calendar";
-// import Card from "@/components/ui/Card";
-import { Card, CardContent } from "@/components/ui/card"
 import {
   Carousel,
   CarouselContent,
@@ -151,7 +149,7 @@ export default function Home() {
               <div className="p-1">
                     <section
                       className="grid laptop:grid-cols-2 justify-around items-center w-full gap-[2rem] flex-wrap mobile:grid-cols-1">
-                      {data?.menu[index].menu.map((menuItem, i) => (
+                      {data?.menu[index].menu.map((menuItem:string, i:number) => (
                         <MenuCard
                           key={i}
                           foodItems={menuItem.menu}
