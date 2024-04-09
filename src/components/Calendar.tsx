@@ -66,7 +66,7 @@ export default function Calendar({ onDateSelect, currentDateIndex, onSelectDayCh
                   handleDateSelect(dateArray[index]);
                 }}
                 className={`flex flex-col items-center justify-center border border-[#53C0D3] dark:border-[#98E4FF] rounded-full aspect-square w-14 h-14 ${
-                  selectedDate === dateArray[index] ? 'bg-[#53C0D3] dark:bg-[#98E4FF] text-black' : ''
+                  selectedDate === dateArray[index] ? 'bg-[#53C0D3] dark:bg-[#98E4FF] text-black transform transition' : ''
                 }`}
               >
                 <div className="text-[11px]">{dayArray[index]}</div>
