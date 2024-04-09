@@ -48,7 +48,7 @@ export default function Calendar({ onDateSelect, currentDateIndex, onSelectDayCh
   };
 
   return (
-    <Carousel className="w-full max-w-sm" setApi={setApi}
+    <Carousel className="w-3/4" setApi={setApi}
               opts={{
                 // startIndex: currentDateIndex,
                 dragFree: true,
