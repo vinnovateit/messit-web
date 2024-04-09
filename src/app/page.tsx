@@ -206,7 +206,7 @@ export default function Home() {
               <div className="p-1">
                     <section
                       className="grid laptop:grid-cols-2 justify-around items-center w-full gap-[2rem] flex-wrap mobile:grid-cols-1">
-                      {data?.menu[index].menu.map((menuItem:string, i:number) => (
+                      {data?.menu[index].menu.map((menuItem: { type: number, menu: string }, i:number) => (
                         <MenuCard
                           key={i}
                           foodItems={menuItem.menu}
