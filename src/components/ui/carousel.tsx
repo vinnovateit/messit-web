@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { ArrowLeftIcon, ArrowRightIcon } from "@radix-ui/react-icons"
+import {ArrowLeftIcon, ArrowRightIcon, CaretLeftIcon, CaretRightIcon} from "@radix-ui/react-icons"
 import useEmblaCarousel, {
   type UseEmblaCarouselType,
 } from "embla-carousel-react"
@@ -197,7 +197,7 @@ CarouselItem.displayName = "CarouselItem"
 const CarouselPrevious = React.forwardRef<
   HTMLButtonElement,
   React.ComponentProps<typeof Button>
->(({ className, variant = "outline", size = "icon", ...props }, ref) => {
+>(({ className="bg-[#53C0D3] dark:bg-[#98E4FF]", variant = "icon", size = "icon", ...props }, ref) => {
   const { orientation, scrollPrev, canScrollPrev } = useCarousel()
 
   return (
@@ -216,7 +216,8 @@ const CarouselPrevious = React.forwardRef<
       onClick={scrollPrev}
       {...props}
     >
-      <ArrowLeftIcon className="h-4 w-4" />
+      <CaretLeftIcon className="w-7 h-7 text-black" data-arrow="left"/>
+      {/*<ArrowLeftIcon className="h-4 w-4" />*/}
       <span className="sr-only">Previous slide</span>
     </Button>
   )
@@ -226,7 +227,7 @@ CarouselPrevious.displayName = "CarouselPrevious"
 const CarouselNext = React.forwardRef<
   HTMLButtonElement,
   React.ComponentProps<typeof Button>
->(({ className, variant = "outline", size = "icon", ...props }, ref) => {
+>(({ className = "bg-[#53C0D3] dark:bg-[#98E4FF]", variant = "icon", size = "icon", ...props }, ref) => {
   const { orientation, scrollNext, canScrollNext } = useCarousel()
 
   return (
@@ -245,7 +246,8 @@ const CarouselNext = React.forwardRef<
       onClick={scrollNext}
       {...props}
     >
-      <ArrowRightIcon className="h-4 w-4" />
+      <CaretRightIcon className="w-7 h-7 text-black" data-arrow="right"/>
+      {/*<ArrowRightIcon className="h-4 w-4" />*/}
       <span className="sr-only">Next slide</span>
     </Button>
   )
