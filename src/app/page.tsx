@@ -68,10 +68,35 @@ export default function Home() {
         }
       }
 
-      const response = await axios.get(`http://localhost:8000/?hostel=${hostelParam}&mess=${messParam}`);
-      setData(response.data);
+      // Check if data is available in localStorage
+      const cachedData = localStorage.getItem(`hostel-${hostelParam}-mess-${messParam}`);
+      if (cachedData) {
+        console.log('Returning cached data');
+        setData(JSON.parse(cachedData));
+      }
+
+      // Refresh data asynchronously
+      console.log('Fetching new data');
+      await fetchNewData(hostelParam, messParam);
+
+      // Return the cached data immediately
+      return data;
     } catch (error) {
       setError('Error fetching data');
+    }
+  };
+
+  const fetchNewData = async (hostelParam:number, messParam:number) => {
+    try {
+      const response = await axios.get(`http://localhost:8000/?hostel=${hostelParam}&mess=${messParam}`);
+      const data = response.data;
+
+      // Store the new data in localStorage
+      console.log('Storing new data in localStorage');
+      localStorage.setItem(`hostel-${hostelParam}-mess-${messParam}`, JSON.stringify(data));
+      setData(data);
+    } catch (error) {
+      setError('Error fetching new data');
     }
   };
 
