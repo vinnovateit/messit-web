@@ -1,39 +1,41 @@
-'use client'
+'use client';
 
-// import { FiSun, FiMoon } from "react-icons/fi"
-import { useState, useEffect } from 'react'
-import { useTheme } from 'next-themes'
-import Image from "next/image"
-import img from "../res/Images/sun.png"
-import img1 from "../res/Images/moon.png"
+import { useState, useEffect } from 'react';
+import { useTheme } from 'next-themes';
+import Image from "next/image";
+import sunIcon from "../../public/sun.png";
+import moonIcon from "../../public/moon.png";
 
-export default function ThemeSwitcher(){
-    const [mounted, setMounted] = useState(false)
-    const { theme, setTheme } = useTheme();
-    useEffect(() =>  setMounted(true), [])
+export default function ThemeSwitcher() {
+  const [mounted, setMounted] = useState(false);
+  const { theme, setTheme } = useTheme();
 
-    if(!mounted){
-        return null;
-    }
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
-    return(
-        <div className='absolute top-5 right-10'>
-            <div className='absolute h-[20px] w-[20px] dark:z-10 -z-10 hidden dark:flex hover:cursor-pointer' onClick={()=>setTheme("light")}>
-                <Image
-                    src={img}
-                    alt="GFG logo served with static path of public directory"
-                    height={20}
-                    width={20}
-                />
-            </div>
-            <div className='absolute h-[20px] w-[20px] dark:-z-10 dark:hidden z-10 hover:cursor-pointer' onClick={()=>setTheme("dark")}>
-                <Image
-                    src={img1}
-                    alt="GFG logo served with static path of public directory"
-                    height={20}
-                    width={20}
-                />
-            </div>
-        </div>
-    )
-};
+  if (!mounted) {
+    return null;
+  }
+
+  const toggleTheme = () => {
+    setTheme(theme === 'light' ? 'dark' : 'light');
+  };
+
+  return (
+    <div className="fixed top-3 right-3 flex items-center">
+      <button
+        className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200"
+        onClick={toggleTheme}
+        aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
+      >
+        <Image
+          src={theme === 'light' ? moonIcon : sunIcon}
+          alt="Theme Toggle Icon"
+          height={20}
+          width={20}
+        />
+      </button>
+    </div>
+  );
+}
