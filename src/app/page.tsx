@@ -10,7 +10,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel"
 import { type CarouselApi } from "@/components/ui/carousel"
-
+import axios from 'axios';
 import MenuCard from "@/components/MenuCard";
 import {useEffect, useState} from "react";
 import Cookies from "js-cookie";
@@ -24,6 +24,24 @@ export default function Home() {
   const [dateArray, setDateArray] = useState<string[]>([]);
   const [api, setApi] = useState<CarouselApi>()
   const [current, setCurrent] = useState(0)
+  const [hostel, setHostel] = useState<number>(1);
+  const [mess, setMess] = useState<number>(1);
+  const [data, setData] = useState<any>(null);
+  const [error, setError] = useState<string | null>(null);
+  // for date heading
+  const currentDate = new Date();
+  const currentMonth = currentDate.toLocaleString('default', { month: 'long' });
+  const currentYear = currentDate.getFullYear();
+
+  const fetchData = async () => {
+    try {
+      const response = await axios.get(`http://localhost:8000/?hostel=${hostel}&mess=${mess}`);
+      setData(response.data);
+      // setData(jsonData);
+    } catch (error) {
+      setError('Error fetching data');
+    }
+  };
 
   useEffect(() => {
     if (!api) {
@@ -39,7 +57,35 @@ export default function Home() {
   useEffect(() => {
     const selectedHostel = Cookies.get('selectedHostelType');
     const selectedMessType = Cookies.get('selectedMessType');
+    if (selectedMessType) {
+      switch (selectedMessType) {
+        case 'special':
+          setMess(1);
+          break;
+        case 'veg':
+          setMess(2);
+          break;
+        case 'non-veg':
+          setMess(3);
+          break;
+        default:
+          setMess(1);
+      }
+    }
 
+    if (selectedHostel) {
+      switch (selectedHostel) {
+        case 'men':
+          setHostel(1);
+          break;
+        case 'ladies':
+          setHostel(2);
+          break;
+        default:
+          setHostel(1);
+      }
+    }
+    fetchData().then(r => console.log('Data fetched')).catch(e => console.error('Error fetching data'));
     if (selectedHostel && selectedMessType) {
       setShowMainContent(true);
     }
@@ -49,10 +95,28 @@ export default function Home() {
     const today = new Date().toISOString().slice(0, 10);
     const currentDateIndex = dates.findIndex(date => date === today);
     setCurrentDateIndex(currentDateIndex);
-  }, []);
+  }, [hostel,mess]);
 
   if (!showMainContent) {
     return <LandingPage/>;
+  }
+
+  // Hostel/mess title
+  let hostelPrefix = '';
+  let messTypeText = '';
+
+  if (hostel === 1) {
+    hostelPrefix = 'MH-';
+  } else if (hostel === 2) {
+    hostelPrefix = 'LH-';
+  }
+
+  if (mess === 1) {
+    messTypeText = 'Special Mess';
+  } else if (mess === 2) {
+    messTypeText = 'Veg Mess';
+  } else if (mess === 3) {
+    messTypeText = 'Non-Veg Mess';
   }
 
   const handleDateSelect = (date: string) => {
@@ -65,14 +129,15 @@ export default function Home() {
     console.log('Select date index:', index)
   };
 
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-around laptop:p-16 gap-[2rem] mobile:p-8">
       <div className="fixed top-2 left-2 z-50">
         <Sidebar setShowMainContent={setShowMainContent}/>
       </div>
       <div className="w-full flex flex-col justify-between items-start text-[3rem] gap-[2rem]">
-        <h1 className="w-full text-center mobile:text-[2rem] mobile:mt-[2rem]"> LH- <span className="font-bold text-[#53C0D3] dark:text-[#98E4FF]">Special Mess</span></h1>
-        <h3 className="mobile:text-[2rem] mobile:w-full mobile:text-center"><b>March </b>2024</h3>
+        <h1 className="w-full text-center mobile:text-[2rem] mobile:mt-[2rem]">{hostelPrefix}<span className="font-bold text-[#53C0D3] dark:text-[#98E4FF]">{messTypeText}</span></h1>
+        <h3 className="mobile:text-[2rem] mobile:w-full mobile:text-center"><b>{currentMonth} </b>{currentYear}</h3>
       </div>
       <Calendar onDateSelect={handleDateSelect} currentDateIndex={currentDateIndex} onSelectDayChange={onSelectDayChange}/>
       <Carousel className="w-full" setApi={setApi}
@@ -83,18 +148,33 @@ export default function Home() {
           {Array.from(dateArray).map((_, index) => (
             <CarouselItem key={index}>
               <div className="p-1">
-                {/*  <CardContent className="flex items-center justify-center p-6">*/}
-                {/*    <span className="text-4xl font-semibold flex items-center justify-center p-6">{index + 1}</span>*/}
                     <section
                       className="grid laptop:grid-cols-2 justify-around items-center w-full gap-[2rem] flex-wrap mobile:grid-cols-1">
-                      {/*todo: load data dynamically!!*/}
-                      <MenuCard foodItems="Idli, Sambar, Chutney" meal={"Breakfast" + index} timing="7:00 AM - 9:00 AM"/>
-                      <MenuCard foodItems="Idli, Sambar, Chutney" meal="Breakfast" timing="7:00 AM - 9:00 AM"/>
-                      <MenuCard foodItems="Idli, Sambar, Chutney" meal="Breakfast" timing="7:00 AM - 9:00 AM"/>
-                      <MenuCard foodItems="Idli, Sambar, Chutney" meal="Breakfast" timing="7:00 AM - 9:00 AM"/>
-
+                      {data?.menu[index].menu.map((menuItem, i) => (
+                        <MenuCard
+                          key={i}
+                          foodItems={menuItem.menu}
+                          meal={
+                            menuItem.type === 1
+                              ? 'Breakfast'
+                              : menuItem.type === 2
+                                ? 'Lunch'
+                                : menuItem.type === 3
+                                  ? 'Snacks'
+                                  : 'Dinner'
+                          }
+                          timing={
+                            menuItem.type === 1
+                              ? '7:00 AM - 9:00 AM'
+                              : menuItem.type === 2
+                                ? '12:30 PM - 2:30 PM'
+                                : menuItem.type === 3
+                                  ? '4:00 PM - 6:00 PM'
+                                  : '7:00 PM - 9:00 PM'
+                          }
+                        />
+                      ))}
                     </section>
-                  {/*</CardContent>*/}
               </div>
             </CarouselItem>
           ))}
