@@ -33,7 +33,16 @@ export default function Calendar({ onDateSelect, currentDateIndex, onSelectDayCh
     // Update the currentDateIndex state if the prop changes
     // setCurrentDateIndexState(currentDateIndex);
     setSelectedDate(dates[currentDateIndex]);
-  }, [currentDateIndex]);
+    if (api) {
+      // api.scrollTo(currentDateIndex);
+      console.log(api.slidesInView())
+      const slidesInView = api.slidesInView();
+      if(!slidesInView.includes(currentDateIndex)) {
+        api.scrollTo(currentDateIndex);
+      }
+      console.log('scrolling date to', currentDateIndex);
+    }
+  }, [api, currentDateIndex]);
 
   const handleDateSelect = (date: string) => {
     setSelectedDate(date);
@@ -42,9 +51,9 @@ export default function Calendar({ onDateSelect, currentDateIndex, onSelectDayCh
   };
 
   return (
-    <Carousel className="w-full max-w-sm"
+    <Carousel className="w-full max-w-sm" setApi={setApi}
               opts={{
-                startIndex: currentDateIndex,
+                // startIndex: currentDateIndex,
                 dragFree: true,
                 align: "start",
               }}>
