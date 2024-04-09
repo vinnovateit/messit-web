@@ -1,70 +1,80 @@
-import {getDates} from "@/helpers/getDates";
-import {getDays} from "@/helpers/getDates";
-import {CaretLeftIcon, CaretRightIcon} from '@radix-ui/react-icons';
-import {useState, useEffect, useRef} from "react";
+import { getDates } from "@/helpers/getDates";
+import { getDays } from "@/helpers/getDates";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel"
+import { type CarouselApi } from "@/components/ui/carousel"
 
-export default function Calendar() {
-  const [dayArray, setDayArray] = useState<string[]>([])
-  const [dateArray, setDateArray] = useState<string[]>([])
-  const leftRef = useRef<HTMLDivElement>(null)
-  const rightRef = useRef<HTMLDivElement>(null)
-  const scrollRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-
-    setDayArray(getDays(getDates()))
-    setDateArray(getDates())
-  }, [])
-
-  function handleArrowClicks(e: any) {
-
-    if (scrollRef.current) {
-      if (e.target.dataset.arrow == "left") {
-        scrollRef.current.scrollBy({
-          left: -200,
-          behavior: "smooth",
-        });
-        return
-      } else {
-        scrollRef.current.scrollBy({
-          left: 200,
-          behavior: "smooth",
-        });
-        return
-      }
-
-    }
-
-  }
-
-  return (<section className="w-full flex  laptop:px-containerPaddingX gap-[2rem]">
-    <div
-      className="text-center laptop:px-[1rem] laptop:py-[1rem] text-[1.3rem] mobile:min-w-[32px] laptop:min-w-[74px] aspect-square rounded-[100%] mobile:h-[32px] laptop:h-auto  bg-[#53C0D3] dark:bg-[#98E4FF]  flex justify-center items-center"
-      data-arrow="left" onClick={handleArrowClicks} ref={leftRef}>
-      <CaretLeftIcon className="w-7 h-7 text-black" onClick={handleArrowClicks} data-arrow="left"/>
-      {/*<Image width={48} height={48} src={"/icons/right.png"} alt="" className="  scale-x-[-1]" data-arrow="left"*/}
-      {/*       onClick={handleArrowClicks}/>*/}
-    </div>
-    <div className="flex overflow-x-scroll no-scrollbar gap-[2rem] " ref={scrollRef}>
-
-      {dayArray.map((day, index) => {
-        return (
-          <div key={dateArray[index]}
-               className="text-center laptop:px-[1rem] laptop:py-[1rem] laptop:text-[1.3rem] laptop:min-w-[74px] aspect-square rounded-[100%] dark:text-white">
-            {day.substring(0, 3)}
-          </div>
-        )
-      })}
-
-    </div>
-    <div
-      className="text-center laptop:px-[1rem] laptop:py-[1rem] text-[1.3rem] mobile:min-w-[32px] laptop:min-w-[74px] aspect-square rounded-[100%] mobile:h-[32px] laptop:h-auto  bg-[#53C0D3] dark:bg-[#98E4FF]  flex justify-center items-center"
-      data-arrow="right" onClick={handleArrowClicks} ref={rightRef}>
-      {/*<Image width={48} height={48} src={"/icons/right.png"} alt="" onClick={handleArrowClicks} data-arrow="right"/>*/}
-      <CaretRightIcon className="w-7 h-7 text-black" onClick={handleArrowClicks} data-arrow="right"/>
-    </div>
-  </section>)
-
+interface CalendarProps {
+  onDateSelect: (date: string) => void;
+  currentDateIndex: number;
+  onSelectDayChange: (index: number) => void;
 }
 
+export default function Calendar({ onDateSelect, currentDateIndex, onSelectDayChange }: CalendarProps) {
+  const [dayArray, setDayArray] = useState<string[]>([]);
+  const [dateArray, setDateArray] = useState<string[]>([]);
+  const [selectedDate, setSelectedDate] = useState<string | null>(null);
+  const [api, setApi] = useState<CarouselApi>()
+  // const [currentDateIndexState, setCurrentDateIndexState] = useState<number>(currentDateIndex);
+
+
+  useEffect(() => {
+    const dates = getDates();
+    setDayArray(getDays(dates));
+    setDateArray(dates);
+
+    // Update the currentDateIndex state if the prop changes
+    // setCurrentDateIndexState(currentDateIndex);
+    setSelectedDate(dates[currentDateIndex]);
+    if (api) {
+      const slidesInView = api.slidesInView();
+      if(!slidesInView.includes(currentDateIndex)) {
+        api.scrollTo(currentDateIndex);
+      }
+    }
+  }, [api, currentDateIndex]);
+
+  const handleDateSelect = (date: string) => {
+    setSelectedDate(date);
+    onDateSelect(date); //todo: unneeded?
+    onSelectDayChange(dateArray.indexOf(date));
+  };
+
+  return (
+    <Carousel className="w-3/4" setApi={setApi}
+              opts={{
+                // startIndex: currentDateIndex,
+                dragFree: true,
+                align: "start",
+              }}>
+      <CarouselContent className="-ml-1">
+        {Array.from(dateArray).map((_, index) => (
+          <CarouselItem key={index} className="pl-1 md:basis-1/3 lg:basis-1/3 max-w-14 tablet:max-w-20">
+            <div className="p-1">
+              <button
+                onClick={() => {
+                  handleDateSelect(dateArray[index]);
+                }}
+                className={`flex flex-col items-center justify-center border border-[#53C0D3] dark:border-[#98E4FF] rounded-full aspect-square tablet:w-14 tablet:h-14 w-[43px] h-[43px] ${
+                  selectedDate === dateArray[index] ? 'bg-[#53C0D3] dark:bg-[#98E4FF] text-black transform transition' : ''
+                }`}
+              >
+                <div className="tablet:text-xs text-[11px] mt-1">{dayArray[index]}</div>
+                <div className="-mt-1 tablet:mt-0 text-lg font-semibold">{index + 1}</div>
+              </button>
+            </div>
+          </CarouselItem>
+        ))}
+      </CarouselContent>
+      <CarouselPrevious />
+      <CarouselNext />
+    </Carousel>
+  );
+}
