@@ -67,6 +67,7 @@ export default function Home() {
         }
       }
 
+      let newData = null;
       // Check if data is available in localStorage
       const cachedData = localStorage.getItem(`hostel-${hostelParam}-mess-${messParam}`);
       if (cachedData) {
@@ -76,7 +77,17 @@ export default function Home() {
 
       // Refresh data asynchronously
       // console.log('Fetching new data');
-      await fetchNewData(hostelParam, messParam);
+      try {
+        newData = await fetchNewData(hostelParam, messParam);
+        if (newData) {
+          setData(newData);
+        }
+      } catch (error) {
+        console.error('Error fetching new data:', error);
+      }
+      if (!cachedData && !newData) {
+        setError('Error fetching data');
+      }
 
       // Return the cached data immediately
       return data;
@@ -89,15 +100,30 @@ export default function Home() {
     try {
       const response = await axios.get(`http://localhost:8000/?hostel=${hostelParam}&mess=${messParam}`);
       const data = response.data;
-
       // Store the new data in localStorage
       // console.log('Storing new data in localStorage');
       localStorage.setItem(`hostel-${hostelParam}-mess-${messParam}`, JSON.stringify(data));
       setData(data);
+      return data;
     } catch (error) {
-      setError('Error fetching new data');
+      console.log('Error fetching new data:', error);
     }
   };
+
+  useEffect(() => {
+    // Check if menu belongs to the current month
+    if (data) {
+      const currentMonthMenus = data.menu.filter((menu: { date: string | number | Date; }) => {
+        const menuDate = new Date(menu.date);
+        return menuDate.getMonth() === currentDate.getMonth();
+      });
+
+      // If no menu for the month, throw error
+      if (!currentMonthMenus || currentMonthMenus.length === 0) {
+        setError('No menu available');
+      }
+    }
+  }, [data, currentDate]);
 
   useEffect(() => {
     if (!api) {
@@ -196,49 +222,50 @@ export default function Home() {
         <h3 className="mobile:text-[2rem] mobile:w-full mobile:text-center"><b>{currentMonth} </b>{currentYear}</h3>
       </div>
       <Calendar onDateSelect={handleDateSelect} currentDateIndex={currentDateIndex} onSelectDayChange={onSelectDayChange}/>
-      <Carousel className="w-full" setApi={setApi}
-                opts={{
-                  startIndex: currentDateIndex,
-                }}>
-        <CarouselContent>
-          {Array.from(dateArray).map((_, index) => (
-            <CarouselItem key={index}>
-              <div className="p-1">
-                    <section
-                      className="grid laptop:grid-cols-2 justify-around items-center w-full gap-[2rem] flex-wrap mobile:grid-cols-1">
-                      {data?.menu[index].menu.map((menuItem: { type: number, menu: string }, i:number) => (
-                        <MenuCard
-                          key={i}
-                          foodItems={menuItem.menu}
-                          meal={
-                            menuItem.type === 1
-                              ? 'Breakfast'
-                              : menuItem.type === 2
-                                ? 'Lunch'
-                                : menuItem.type === 3
-                                  ? 'Snacks'
-                                  : 'Dinner'
-                          }
-                          timing={
-                            menuItem.type === 1
-                              ? '7:00 AM - 9:00 AM'
-                              : menuItem.type === 2
-                                ? '12:30 PM - 2:30 PM'
-                                : menuItem.type === 3
-                                  ? '4:00 PM - 6:00 PM'
-                                  : '7:00 PM - 9:00 PM'
-                          }
-                        />
-                      ))}
-                    </section>
-              </div>
-            </CarouselItem>
-          ))}
-        </CarouselContent>
-      </Carousel>
       {error ? (
           <div className="w-full text-center text-red-500">Mess menu not available. Please try again later.</div>
-        ) : null}
+        ) :
+        <Carousel className="w-full" setApi={setApi}
+                  opts={{
+                    startIndex: currentDateIndex,
+                  }}>
+          <CarouselContent>
+            {Array.from(dateArray).map((_, index) => (
+              <CarouselItem key={index}>
+                <div className="p-1">
+                  <section
+                    className="grid laptop:grid-cols-2 justify-around items-center w-full gap-[2rem] flex-wrap mobile:grid-cols-1">
+                    {data?.menu[index].menu.map((menuItem: { type: number, menu: string }, i:number) => (
+                      <MenuCard
+                        key={i}
+                        foodItems={menuItem.menu}
+                        meal={
+                          menuItem.type === 1
+                            ? 'Breakfast'
+                            : menuItem.type === 2
+                              ? 'Lunch'
+                              : menuItem.type === 3
+                                ? 'Snacks'
+                                : 'Dinner'
+                        }
+                        timing={
+                          menuItem.type === 1
+                            ? '7:00 AM - 9:00 AM'
+                            : menuItem.type === 2
+                              ? '12:30 PM - 2:30 PM'
+                              : menuItem.type === 3
+                                ? '4:00 PM - 6:00 PM'
+                                : '7:00 PM - 9:00 PM'
+                        }
+                      />
+                    ))}
+                  </section>
+                </div>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+        </Carousel>
+      }
     </main>
   );
 }
