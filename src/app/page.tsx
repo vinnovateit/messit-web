@@ -236,6 +236,9 @@ export default function Home() {
           ))}
         </CarouselContent>
       </Carousel>
+      {error ? (
+          <div className="w-full text-center text-red-500">Mess menu not available. Please try again later.</div>
+        ) : null}
     </main>
   );
 }
