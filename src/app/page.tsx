@@ -168,18 +168,25 @@ export default function Home() {
       }
     }
     fetchData().then(r => console.log('Data fetched')).catch(e => console.error('Error fetching data'));
-    if (selectedHostel && selectedMessType) {
+    if (!selectedHostel && !selectedMessType) {
       setShowMainContent(true);
     }
     const dates = getDates();
     setDateArray(dates);
     // set to current date
-    const today = new Date().toISOString().slice(0, 10);
+    const today = new Intl.DateTimeFormat('en-CA', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit'
+    }).format(new Date());
     const currentDateIndex = dates.findIndex(date => date === today);
     setCurrentDateIndex(currentDateIndex);
-  }, [hostel,mess]);
+    if(api) {
+      api.scrollTo(currentDateIndex,true);
+    }
+  }, [api, hostel, mess]);
 
-  if (!showMainContent) {
+  if (showMainContent) {
     return <LandingPage/>;
   }
 
