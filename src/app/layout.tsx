@@ -1,4 +1,4 @@
-import type {Metadata, Viewport} from "next";
+import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import {ThemeProvider} from "@/components/theme-provider";
@@ -13,9 +13,6 @@ export const metadata: Metadata = {
     description: "VinnovateIT",
 };
 
-export const viewport: Viewport = {
-  themeColor: '#fff',
-}
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -25,7 +22,6 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
     <head>
       <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
-      {/*<meta name="theme-color" content="#fff"/>*/}
       <link rel="apple-touch-startup-image" href="/splash/apple-splash-2048-2732.jpg"
             media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"/>
       <link rel="apple-touch-startup-image" href="/splash/apple-splash-2732-2048.jpg"
