@@ -181,7 +181,10 @@ export default function Home() {
     }).format(new Date());
     const currentDateIndex = dates.findIndex(date => date === today);
     setCurrentDateIndex(currentDateIndex);
-  }, [hostel,mess]);
+    if(api) {
+      api.scrollTo(currentDateIndex,true);
+    }
+  }, [api, hostel, mess]);
 
   if (showMainContent) {
     return <LandingPage/>;
