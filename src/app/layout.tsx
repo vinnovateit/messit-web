@@ -158,6 +158,17 @@ export default function RootLayout({
             media="(prefers-color-scheme: dark) and (device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"/>
       <link rel="apple-touch-startup-image" href="/splash/apple-splash-dark-1136-640.jpg"
             media="(prefers-color-scheme: dark) and (device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"/>
+      <script
+        dangerouslySetInnerHTML={{
+          __html: `
+              try {
+                if (localStorage.theme === 'dark' || ((!('theme' in localStorage) || localStorage.theme === 'system') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                  document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0B1120')
+                }
+              } catch (_) {}
+            `,
+        }}
+      />
     </head>
     <body className={inter.className}>
     <ThemeProvider
