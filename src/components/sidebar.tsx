@@ -22,14 +22,9 @@ const Sidebar = ({ setShowMainContent }: SidebarProps) => {
   ];
   useEffect(() => {
     const metaTag = document.querySelector('meta[name="theme-color"]');
-    if (theme === 'dark') {
-      document
-        .querySelector('meta[name="theme-color"]')!
-        .setAttribute('content', '#0B1120')
-    } else {
-      document
-        .querySelector('meta[name="theme-color"]')!
-        .setAttribute('content', '#fff')
+    if (metaTag) {
+      metaTag.querySelector('meta[name="theme-color"]')!.setAttribute('content', theme === 'light' ? '#0B1120' : '#fff' );
+
     }
   }, [theme]);
 
