@@ -168,7 +168,7 @@ export default function Home() {
       }
     }
     fetchData().then(r => console.log('Data fetched')).catch(e => console.error('Error fetching data'));
-    if (selectedHostel && selectedMessType) {
+    if (!selectedHostel && !selectedMessType) {
       setShowMainContent(true);
     }
     const dates = getDates();
@@ -179,7 +179,7 @@ export default function Home() {
     setCurrentDateIndex(currentDateIndex);
   }, [hostel,mess]);
 
-  if (!showMainContent) {
+  if (showMainContent) {
     return <LandingPage/>;
   }
 
