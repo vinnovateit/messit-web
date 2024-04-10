@@ -7,6 +7,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel"
+import { Skeleton } from "@/components/ui/skeleton"
 import { type CarouselApi } from "@/components/ui/carousel"
 import axios from 'axios';
 import MenuCard from "@/components/MenuCard";
@@ -273,6 +274,17 @@ export default function Home() {
           </CarouselContent>
         </Carousel>
       }
+      {!data && (
+        <div className="w-full flex justify-center">
+          <section
+            className="grid laptop:grid-cols-2 justify-around items-center w-full gap-[2rem] flex-wrap mobile:grid-cols-1">
+            <Skeleton className="w-full min-h-[200px] tablet:min-h-[250px] rounded-lg"/>
+            <Skeleton className="w-full min-h-[200px] tablet:min-h-[250px] rounded-lg"/>
+            <Skeleton className="w-full min-h-[200px] tablet:min-h-[250px] rounded-lg"/>
+            <Skeleton className="w-full min-h-[200px] tablet:min-h-[250px] rounded-lg"/>
+          </section>
+        </div>
+      )}
     </main>
   );
 }
