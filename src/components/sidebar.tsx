@@ -1,5 +1,5 @@
 'use client';
-import { Dispatch, SetStateAction } from 'react';
+import {Dispatch, SetStateAction, useEffect} from 'react';
 import {Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger} from "@/components/ui/sheet";
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select";
 import {TextAlignLeftIcon} from '@radix-ui/react-icons';
@@ -20,6 +20,13 @@ const Sidebar = ({ setShowMainContent }: SidebarProps) => {
     {label: "Reset", page: "/reset"},
     // {label: "About us", page: "/about"}
   ];
+  useEffect(() => {
+    const metaTag = document.querySelector('meta[name="theme-color"]');
+    if (metaTag) {
+      metaTag.querySelector('meta[name="theme-color"]')!.setAttribute('content', theme === 'light' ? '#0B1120' : '#fff' );
+
+    }
+  }, [theme]);
 
   const handleButtonClick = (page: string) => {
     if (page === "/reset") {
