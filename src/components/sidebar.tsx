@@ -25,7 +25,7 @@ const Sidebar = ({ setShowMainContent }: SidebarProps) => {
     if (page === "/reset") {
       Cookies.remove('selectedHostelType');
       Cookies.remove('selectedMessType');
-      setShowMainContent(true);
+      setShowMainContent(false);
     } else {
       router.push(page);
     }
