@@ -22,9 +22,14 @@ export default function ThemeSwitcher() {
     setTheme(theme === 'light' ? 'dark' : 'light');
     // document.querySelector('meta[name="theme-color"]')!.setAttribute('content', theme === 'light' ? '#0B1120' : '#f8fafc' );
     const metaTag = document.querySelector('meta[name="theme-color"]');
-    if (metaTag) {
-      metaTag.querySelector('meta[name="theme-color"]')!.setAttribute('content', theme === 'light' ? '#0B1120' : '#fff' );
-
+    if (theme === 'dark') {
+      document
+        .querySelector('meta[name="theme-color"]')!
+        .setAttribute('content', '#fff')
+    } else {
+      document
+        .querySelector('meta[name="theme-color"]')!
+        .setAttribute('content', '#0B1120')
     }
   };
 
