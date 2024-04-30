@@ -100,6 +100,7 @@ export default function Home() {
   const fetchNewData = async (hostelParam:number, messParam:number) => {
     try {
       const response = await axios.get(`https://messit-server-vinnovateit.vercel.app/?hostel=${hostelParam}&mess=${messParam}`);
+      // const response = await axios.get(`http://localhost:8000/?hostel=${hostelParam}&mess=${messParam}`);
       const data = response.data;
       // Store the new data in localStorage
       // console.log('Storing new data in localStorage');
@@ -122,6 +123,7 @@ export default function Home() {
       // If no menu for the month, throw error
       if (!currentMonthMenus || currentMonthMenus.length === 0) {
         setError('No menu available');
+        console.log("PANIKKKKKKK");
       }
     }
   }, [data, currentDate]);
@@ -238,39 +240,47 @@ export default function Home() {
                     startIndex: currentDateIndex,
                   }}>
           <CarouselContent>
-            {Array.from(dateArray).map((_, index) => (
-              <CarouselItem key={index}>
-                <div className="p-1">
-                  <section
-                    className="grid laptop:grid-cols-2 justify-around items-center w-full gap-[2rem] flex-wrap mobile:grid-cols-1">
-                    {data?.menu[index].menu.map((menuItem: { type: number, menu: string }, i:number) => (
-                      <MenuCard
-                        key={i}
-                        foodItems={menuItem.menu}
-                        meal={
-                          menuItem.type === 1
-                            ? 'Breakfast'
-                            : menuItem.type === 2
-                              ? 'Lunch'
-                              : menuItem.type === 3
-                                ? 'Snacks'
-                                : 'Dinner'
-                        }
-                        timing={
-                          menuItem.type === 1
-                            ? '7:00 AM - 9:00 AM'
-                            : menuItem.type === 2
-                              ? '12:30 PM - 2:30 PM'
-                              : menuItem.type === 3
-                                ? '4:00 PM - 6:00 PM'
-                                : '7:00 PM - 9:00 PM'
-                        }
-                      />
-                    ))}
-                  </section>
-                </div>
-              </CarouselItem>
-            ))}
+            {Array.from(dateArray).some((_, index) => {
+              const menuDate = new Date(data?.menu[index]?.date);
+              // const currentDate = new Date();
+              return isNaN(menuDate.getTime()) || menuDate.getMonth() !== currentDate.getMonth();
+            }) ? (
+              <></>
+            ) : (
+              Array.from(dateArray).map((_, index) => (
+                <CarouselItem key={index}>
+                  <div className="p-1">
+                    <section
+                      className="grid laptop:grid-cols-2 justify-around items-center w-full gap-[2rem] flex-wrap mobile:grid-cols-1">
+                      {data?.menu[index].menu.map((menuItem: { type: number, menu: string }, i:number) => (
+                        <MenuCard
+                          key={i}
+                          foodItems={menuItem.menu}
+                          meal={
+                            menuItem.type === 1
+                              ? 'Breakfast'
+                              : menuItem.type === 2
+                                ? 'Lunch'
+                                : menuItem.type === 3
+                                  ? 'Snacks'
+                                  : 'Dinner'
+                          }
+                          timing={
+                            menuItem.type === 1
+                              ? '7:00 AM - 9:00 AM'
+                              : menuItem.type === 2
+                                ? '12:30 PM - 2:30 PM'
+                                : menuItem.type === 3
+                                  ? '4:00 PM - 6:00 PM'
+                                  : '7:00 PM - 9:00 PM'
+                          }
+                        />
+                      ))}
+                    </section>
+                  </div>
+                </CarouselItem>
+              ))
+            )}
           </CarouselContent>
         </Carousel>
       }
