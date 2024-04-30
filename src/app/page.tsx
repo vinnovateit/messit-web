@@ -123,7 +123,6 @@ export default function Home() {
       // If no menu for the month, throw error
       if (!currentMonthMenus || currentMonthMenus.length === 0) {
         setError('No menu available');
-        console.log("PANIKKKKKKK");
       }
     }
   }, [data, currentDate]);
