@@ -283,7 +283,7 @@ export default function Home() {
           </CarouselContent>
         </Carousel>
       }
-      {!data && (
+      {(!data || error) && (
         <div className="w-full flex justify-center">
           <section
             className="grid laptop:grid-cols-2 justify-around items-center w-full gap-[2rem] flex-wrap mobile:grid-cols-1">
