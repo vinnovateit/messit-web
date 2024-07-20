@@ -12,10 +12,10 @@ const inter = Inter({ subsets: ["latin"] });
 //     title: "Messit Web",
 //     description: "VinnovateIT",
 // };
-const APP_NAME = "Messit Web";
-const APP_DEFAULT_TITLE = "Messit Web";
+const APP_NAME = "Messit Web by VinnovateIT";
+const APP_DEFAULT_TITLE = "Messit Web by VinnovateIT";
 const APP_TITLE_TEMPLATE = "%s";
-const APP_DESCRIPTION = "VinnovateIT";
+const APP_DESCRIPTION = "Unmess the mess, See your hostel mess menu at the ease of a click.";
 
 export const metadata: Metadata = {
   applicationName: APP_NAME,
