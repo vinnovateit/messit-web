@@ -99,6 +99,7 @@ export default function Home() {
 
   const fetchNewData = async (hostelParam:number, messParam:number) => {
     try {
+      
       const response = await axios.get(`https://messit-server-henna.vercel.app/?hostel=${hostelParam}&mess=${messParam}`);
       // const response = await axios.get(`http://localhost:8000/?hostel=${hostelParam}&mess=${messParam}`);
       const data = response.data;
