@@ -1,21 +1,19 @@
 'use client'
+
 import Calendar from "@/components/Calendar";
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
+  CarouselApi
 } from "@/components/ui/carousel"
 import { Skeleton } from "@/components/ui/skeleton"
-import { type CarouselApi } from "@/components/ui/carousel"
-import axios from 'axios';
 import MenuCard from "@/components/MenuCard";
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import Sidebar from "@/components/sidebar";
 import LandingPage from "@/components/Landing";
-import {getDates} from "@/helpers/getDates";
+import { getDates } from "@/helpers/getDates";
 
 export default function Home() {
   const [showMainContent, setShowMainContent] = useState(false);
@@ -27,6 +25,7 @@ export default function Home() {
   const [mess, setMess] = useState<number>(1);
   const [data, setData] = useState<any>(null);
   const [error, setError] = useState<string | null>(null);
+
   // for date heading
   const currentDate = new Date();
   const currentMonth = currentDate.toLocaleString('default', { month: 'long' });
@@ -36,97 +35,57 @@ export default function Home() {
     try {
       const selectedHostel = Cookies.get('selectedHostelType');
       const selectedMessType = Cookies.get('selectedMessType');
-      let hostelParam = 1;
-      let messParam = 1;
+      let hostelParam = selectedHostel === 'men' ? 1 : 2;
+      let messParam = selectedMessType === 'special' ? 1 : selectedMessType === 'veg' ? 2 : 3;
 
-      if (selectedHostel) {
-        switch (selectedHostel) {
-          case 'men':
-            hostelParam = 1;
-            break;
-          case 'ladies':
-            hostelParam = 2;
-            break;
-          default:
-            hostelParam = 1;
-        }
+      const jsonPath = `/menu-data/hostel-${hostelParam}-mess-${messParam}.json`;
+      const response = await fetch(jsonPath);
+      if (!response.ok) {
+        throw new Error('Failed to fetch data');
       }
-
-      if (selectedMessType) {
-        switch (selectedMessType) {
-          case 'special':
-            messParam = 1;
-            break;
-          case 'veg':
-            messParam = 2;
-            break;
-          case 'non-veg':
-            messParam = 3;
-            break;
-          default:
-            messParam = 1;
-        }
+      const jsonData = await response.json();
+      if (!jsonData || !jsonData.menu || jsonData.menu.length === 0) {
+        throw new Error('Invalid or empty data');
       }
-
-      let newData = null;
-      // Check if data is available in localStorage
-      const cachedData = localStorage.getItem(`hostel-${hostelParam}-mess-${messParam}`);
-      if (cachedData) {
-        // console.log('Returning cached data');
-        setData(JSON.parse(cachedData));
-      }
-
-      // Refresh data asynchronously
-      // console.log('Fetching new data');
-      try {
-        newData = await fetchNewData(hostelParam, messParam);
-        if (newData) {
-          setData(newData);
-        }
-      } catch (error) {
-        console.error('Error fetching new data:', error);
-      }
-      if (!cachedData && !newData) {
-        setError('Error fetching data');
-      }
-
-      // Return the cached data immediately
-      return data;
+      setData(jsonData);
+      setError(null);
     } catch (error) {
-      setError('Error fetching data');
-    }
-  };
-
-  const fetchNewData = async (hostelParam:number, messParam:number) => {
-    try {
-      
-      const response = await axios.get(`https://messit-server-henna.vercel.app/?hostel=${hostelParam}&mess=${messParam}`);
-      // const response = await axios.get(`http://localhost:8000/?hostel=${hostelParam}&mess=${messParam}`);
-      const data = response.data;
-      // Store the new data in localStorage
-      // console.log('Storing new data in localStorage');
-      localStorage.setItem(`hostel-${hostelParam}-mess-${messParam}`, JSON.stringify(data));
-      setData(data);
-      return data;
-    } catch (error) {
-      console.log('Error fetching new data:', error);
+      console.error('Error fetching data:', error);
+      setError('Error fetching menu data. Please try again later.');
+      setData(null);
     }
   };
 
   useEffect(() => {
-    // Check if menu belongs to the current month
-    if (data) {
-      const currentMonthMenus = data.menu.filter((menu: { date: string | number | Date; }) => {
-        const menuDate = new Date(menu.date);
-        return menuDate.getMonth() === currentDate.getMonth();
-      });
+    const selectedHostel = Cookies.get('selectedHostelType');
+    const selectedMessType = Cookies.get('selectedMessType');
 
-      // If no menu for the month, throw error
-      if (!currentMonthMenus || currentMonthMenus.length === 0) {
-        setError('No menu available');
-      }
+    setMess(selectedMessType === 'special' ? 1 : selectedMessType === 'veg' ? 2 : 3);
+    setHostel(selectedHostel === 'men' ? 1 : 2);
+
+    if (!selectedHostel && !selectedMessType) {
+      setShowMainContent(true);
+    } else {
+      fetchData();
     }
-  }, [data, currentDate]);
+
+    const dates = getDates();
+    setDateArray(dates);
+
+    const today = new Intl.DateTimeFormat('en-CA', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit'
+    }).format(new Date());
+    const todayIndex = dates.findIndex(date => date === today);
+    setCurrentDateIndex(todayIndex !== -1 ? todayIndex : 0);
+  }, [hostel, mess]);
+
+  useEffect(() => {
+    if (api) {
+      api.scrollTo(currentDateIndex, true);
+    }
+  }, [api, currentDateIndex]);
 
   useEffect(() => {
     if (!api) {
@@ -139,99 +98,42 @@ export default function Home() {
     })
   }, [api])
 
-  useEffect(() => {
-    const selectedHostel = Cookies.get('selectedHostelType');
-    const selectedMessType = Cookies.get('selectedMessType');
-    if (selectedMessType) {
-      switch (selectedMessType) {
-        case 'special':
-          setMess(1);
-          break;
-        case 'veg':
-          setMess(2);
-          break;
-        case 'non-veg':
-          setMess(3);
-          break;
-        default:
-          setMess(1);
-      }
-    }
-
-    if (selectedHostel) {
-      switch (selectedHostel) {
-        case 'men':
-          setHostel(1);
-          break;
-        case 'ladies':
-          setHostel(2);
-          break;
-        default:
-          setHostel(1);
-      }
-    }
-    fetchData().then(r => console.log('Data fetched')).catch(e => console.error('Error fetching data'));
-    if (!selectedHostel && !selectedMessType) {
-      setShowMainContent(true);
-    }
-    const dates = getDates();
-    setDateArray(dates);
-    // set to current date
-    const today = new Intl.DateTimeFormat('en-CA', {
-      year: 'numeric',
-      month: '2-digit',
-      day: '2-digit'
-    }).format(new Date());
-    const currentDateIndex = dates.findIndex(date => date === today);
-    setCurrentDateIndex(currentDateIndex);
-    if(api) {
-      api.scrollTo(currentDateIndex,true);
-    }
-  }, [api, hostel, mess]);
-
-  if (showMainContent) {
-    return <LandingPage/>;
-  }
-
-  // Hostel/mess title
-  let hostelPrefix = '';
-  let messTypeText = '';
-
-  if (hostel === 1) {
-    hostelPrefix = 'MH-';
-  } else if (hostel === 2) {
-    hostelPrefix = 'LH-';
-  }
-
-  if (mess === 1) {
-    messTypeText = 'Special Mess';
-  } else if (mess === 2) {
-    messTypeText = 'Veg Mess';
-  } else if (mess === 3) {
-    messTypeText = 'Non-Veg Mess';
-  }
-
   const handleDateSelect = (date: string) => {
     console.log('Selected date:', date);
   };
+
   const onSelectDayChange = (index: number) => {
     if (api) {
       api.scrollTo(index);
     }
-    // console.log('Select date index:', index)
   };
 
+  // Hostel/mess title
+  const hostelPrefix = hostel === 1 ? 'MH-' : 'LH-';
+  const messTypeText = mess === 1 ? 'Special Mess' : mess === 2 ? 'Veg Mess' : 'Non-Veg Mess';
+
+  if (showMainContent) {
+    return <LandingPage />;
+  }
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-around laptop:p-16 gap-[2rem] mobile:p-8">
       <div className="fixed top-2 left-2 z-50">
-        <Sidebar setShowMainContent={setShowMainContent}/>
+        <Sidebar setShowMainContent={setShowMainContent} />
       </div>
       <div className="w-full flex flex-col justify-between items-start text-[3rem] gap-[2rem]">
-        <h1 className="w-full text-center mobile:text-[2rem] mobile:mt-[2rem]">{hostelPrefix}<span className="font-bold text-[#53C0D3] dark:text-[#98E4FF]">{messTypeText}</span></h1>
-        <h3 className="mobile:text-[2rem] mobile:w-full mobile:text-center"><b>{currentMonth} </b>{currentYear}</h3>
+        <h1 className="w-full text-center mobile:text-[2rem] mobile:mt-[2rem]">
+          {hostelPrefix}<span className="font-bold text-[#53C0D3] dark:text-[#98E4FF]">{messTypeText}</span>
+        </h1>
+        <h3 className="mobile:text-[2rem] mobile:w-full mobile:text-center">
+          <b>{currentMonth} </b>{currentYear}
+        </h3>
       </div>
-      <Calendar onDateSelect={handleDateSelect} currentDateIndex={currentDateIndex} onSelectDayChange={onSelectDayChange}/>
+      <Calendar
+        onDateSelect={handleDateSelect}
+        currentDateIndex={currentDateIndex}
+        onSelectDayChange={onSelectDayChange}
+      />
       {error ? (
           <div className="w-full text-center text-red-500">Mess menu not available. Please try again later.</div>
         ) :
