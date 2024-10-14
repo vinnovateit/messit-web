@@ -82,6 +82,21 @@ export default function Home() {
   }, [hostel, mess]);
 
   useEffect(() => {
+    // Check if menu belongs to the current month
+    if (data) {
+      const currentMonthMenus = data.menu.filter((menu: { date: string | number | Date; }) => {
+        const menuDate = new Date(menu.date);
+        return menuDate.getMonth() === currentDate.getMonth();
+      });
+
+      // If no menu for the month, throw error
+      if (!currentMonthMenus || currentMonthMenus.length === 0) {
+        setError('No menu available');
+      }
+    }
+  }, [data, currentDate]);
+
+  useEffect(() => {
     if (api) {
       api.scrollTo(currentDateIndex, true);
     }
