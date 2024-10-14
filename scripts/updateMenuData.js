@@ -2,8 +2,8 @@ const axios = require('axios');
 const fs = require('fs').promises;
 const path = require('path');
 
-// const API_BASE_URL = 'https://messit-server-henna.vercel.app';
-const API_BASE_URL = 'http://localhost:8000';
+const API_BASE_URL = 'https://messit-server-web-cf-sneak.vercel.app'; // 'https://messit-server-henna.vercel.app'
+// const API_BASE_URL = 'http://localhost:8000';
 
 async function fetchMenuData(hostel, mess) {
   try {
