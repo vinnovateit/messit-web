@@ -8,6 +8,7 @@ import Cookies from "js-cookie";
 import Sidebar from "@/components/sidebar";
 import LandingPage from "@/components/Landing";
 import {getDates} from "@/helpers/getDates";
+import InstallPrompt from "@/components/InstallPrompt";
 
 export default function Home() {
   const [showMainContent, setShowMainContent] = useState(false);
@@ -123,6 +124,7 @@ export default function Home() {
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-around laptop:p-16 gap-[2rem] mobile:p-8">
+      <InstallPrompt />
       <div className="fixed top-2 left-2 z-50">
         <Sidebar setShowMainContent={setShowMainContent}/>
       </div>
