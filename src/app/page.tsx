@@ -1,8 +1,7 @@
 'use client'
-
 import Calendar from "@/components/Calendar";
-import {Carousel, CarouselApi, CarouselContent, CarouselItem} from "@/components/ui/carousel"
-import {Skeleton} from "@/components/ui/skeleton"
+import {Carousel, CarouselApi, CarouselContent, CarouselItem} from "@/components/ui/carousel";
+import {Skeleton} from "@/components/ui/skeleton";
 import MenuCard from "@/components/MenuCard";
 import {useEffect, useState} from "react";
 import Cookies from "js-cookie";
@@ -14,8 +13,8 @@ export default function Home() {
   const [showMainContent, setShowMainContent] = useState(false);
   const [currentDateIndex, setCurrentDateIndex] = useState<number>(0);
   const [dateArray, setDateArray] = useState<string[]>([]);
-  const [api, setApi] = useState<CarouselApi>()
-  const [current, setCurrent] = useState(0)
+  const [api, setApi] = useState<CarouselApi>();
+  const [current, setCurrent] = useState(0);
   const [hostel, setHostel] = useState<number>(1);
   const [mess, setMess] = useState<number>(1);
   const [data, setData] = useState<any>(null);
@@ -99,18 +98,14 @@ export default function Home() {
 
   useEffect(() => {
     if (!api) {
-      return
+      return;
     }
-    setCurrent(api.selectedScrollSnap() + 1)
+    setCurrent(api.selectedScrollSnap() + 1);
     api.on("select", () => {
-      setCurrent(api.selectedScrollSnap() + 1)
-      setCurrentDateIndex(api.selectedScrollSnap())
-    })
-  }, [api])
-
-  const handleDateSelect = (date: string) => {
-    console.log('Selected date:', date);
-  };
+      setCurrent(api.selectedScrollSnap() + 1);
+      setCurrentDateIndex(api.selectedScrollSnap());
+    });
+  }, [api]);
 
   const onSelectDayChange = (index: number) => {
     if (api) {
@@ -140,7 +135,6 @@ export default function Home() {
         </h3>
       </div>
       <Calendar
-        onDateSelect={handleDateSelect}
         currentDateIndex={currentDateIndex}
         onSelectDayChange={onSelectDayChange}
       />
@@ -154,7 +148,6 @@ export default function Home() {
           <CarouselContent>
             {Array.from(dateArray).some((_, index) => {
               const menuDate = new Date(data?.menu[index]?.date);
-              // const currentDate = new Date();
               return isNaN(menuDate.getTime()) || menuDate.getMonth() !== currentDate.getMonth();
             }) ? (
               <></>
