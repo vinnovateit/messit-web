@@ -164,30 +164,36 @@ export default function Home() {
                   <div className="p-1">
                     <section
                       className="grid laptop:grid-cols-2 justify-around items-center w-full gap-[2rem] flex-wrap mobile:grid-cols-1">
-                      {data?.menu[index].menu.map((menuItem: { type: number, menu: string }, i: number) => (
-                        <MenuCard
-                          key={i}
-                          foodItems={menuItem.menu}
-                          meal={
-                            menuItem.type === 1
-                              ? 'Breakfast'
-                              : menuItem.type === 2
-                                ? 'Lunch'
-                                : menuItem.type === 3
-                                  ? 'Snacks'
-                                  : 'Dinner'
-                          }
-                          timing={
-                            menuItem.type === 1
-                              ? '7:00 AM - 9:00 AM'
-                              : menuItem.type === 2
-                                ? '12:30 PM - 2:30 PM'
-                                : menuItem.type === 3
-                                  ? '4:00 PM - 6:00 PM'
-                                  : '7:00 PM - 9:00 PM'
-                          }
-                        />
-                      ))}
+                      {data?.menu[index].menu.map((menuItem: { type: number, menu: string }, i: number) => {
+                        const menuDate = new Date(data.menu[index].date);
+                        const isWeekend = menuDate.getDay() === 0 || menuDate.getDay() === 6;
+                        const breakfastTiming = isWeekend ? '7:30 AM - 9:30 AM' : '7:00 AM - 9:00 AM';
+
+                        return (
+                          <MenuCard
+                            key={i}
+                            foodItems={menuItem.menu}
+                            meal={
+                              menuItem.type === 1
+                                ? 'Breakfast'
+                                : menuItem.type === 2
+                                  ? 'Lunch'
+                                  : menuItem.type === 3
+                                    ? 'Snacks'
+                                    : 'Dinner'
+                            }
+                            timing={
+                              menuItem.type === 1
+                                ? breakfastTiming
+                                : menuItem.type === 2
+                                  ? '12:30 PM - 2:30 PM'
+                                  : menuItem.type === 3
+                                    ? '4:30 PM - 6:00 PM'
+                                    : '7:00 PM - 9:00 PM'
+                            }
+                          />
+                        );
+                      })}
                     </section>
                   </div>
                 </CarouselItem>
