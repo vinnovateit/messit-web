@@ -1,19 +1,14 @@
 'use client'
 
 import Calendar from "@/components/Calendar";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselApi
-} from "@/components/ui/carousel"
-import { Skeleton } from "@/components/ui/skeleton"
+import {Carousel, CarouselApi, CarouselContent, CarouselItem} from "@/components/ui/carousel"
+import {Skeleton} from "@/components/ui/skeleton"
 import MenuCard from "@/components/MenuCard";
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 import Cookies from "js-cookie";
 import Sidebar from "@/components/sidebar";
 import LandingPage from "@/components/Landing";
-import { getDates } from "@/helpers/getDates";
+import {getDates} from "@/helpers/getDates";
 
 export default function Home() {
   const [showMainContent, setShowMainContent] = useState(false);
@@ -28,7 +23,7 @@ export default function Home() {
 
   // for date heading
   const currentDate = new Date();
-  const currentMonth = currentDate.toLocaleString('default', { month: 'long' });
+  const currentMonth = currentDate.toLocaleString('default', {month: 'long'});
   const currentYear = currentDate.getFullYear();
 
   const fetchData = async () => {
@@ -100,7 +95,7 @@ export default function Home() {
     if (api) {
       api.scrollTo(currentDateIndex, true);
     }
-  }, [api, currentDateIndex]);
+  }, [api, currentDateIndex, data]);
 
   useEffect(() => {
     if (!api) {
@@ -128,13 +123,13 @@ export default function Home() {
   const messTypeText = mess === 1 ? 'Special Mess' : mess === 2 ? 'Veg Mess' : 'Non-Veg Mess';
 
   if (showMainContent) {
-    return <LandingPage />;
+    return <LandingPage/>;
   }
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-around laptop:p-16 gap-[2rem] mobile:p-8">
       <div className="fixed top-2 left-2 z-50">
-        <Sidebar setShowMainContent={setShowMainContent} />
+        <Sidebar setShowMainContent={setShowMainContent}/>
       </div>
       <div className="w-full flex flex-col justify-between items-start text-[3rem] gap-[2rem]">
         <h1 className="w-full text-center mobile:text-[2rem] mobile:mt-[2rem]">
@@ -169,7 +164,7 @@ export default function Home() {
                   <div className="p-1">
                     <section
                       className="grid laptop:grid-cols-2 justify-around items-center w-full gap-[2rem] flex-wrap mobile:grid-cols-1">
-                      {data?.menu[index].menu.map((menuItem: { type: number, menu: string }, i:number) => (
+                      {data?.menu[index].menu.map((menuItem: { type: number, menu: string }, i: number) => (
                         <MenuCard
                           key={i}
                           foodItems={menuItem.menu}
