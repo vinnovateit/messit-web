@@ -2,10 +2,7 @@ import type {Metadata, Viewport} from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import {ThemeProvider} from "@/components/theme-provider";
-import Sidebar from "@/components/sidebar";
 import { ToastContainer } from "react-toastify";
-import ThemeSwitcher from "@/components/ThemeSwitch";
-import { Analytics } from "@vercel/analytics/react"
 const inter = Inter({ subsets: ["latin"] });
 
 // export const metadata: Metadata = {
@@ -227,7 +224,6 @@ export default function RootLayout({
       </div>
       {/*<ThemeSwitcher />*/}
       {children}
-      <Analytics/>
     </ThemeProvider>
     </body>
     </html>
