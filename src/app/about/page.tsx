@@ -50,7 +50,7 @@ const About = () => {
                     <Card key={index}>
                         <CardHeader>
                             <CardTitle>
-                                <img src={contributor.imageUrl} alt={contributor.name}
+                                <ExportedImage src={contributor.imageUrl} alt={contributor.name} width={128} height={128}
                                      className="w-32 h-32 mx-auto rounded-full"/>
                                 {contributor.name}
                             </CardTitle>
