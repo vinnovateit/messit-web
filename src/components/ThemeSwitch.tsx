@@ -3,8 +3,8 @@
 import { useState, useEffect } from 'react';
 import { useTheme } from 'next-themes';
 import ExportedImage from "next-image-export-optimizer";
-import sunIcon from "/public/sun.png";
-import moonIcon from "/public/moon.png";
+import sunIcon from "/public/images/sun.png";
+import moonIcon from "/public/images/moon.png";
 
 export default function ThemeSwitcher() {
   const [mounted, setMounted] = useState(false);

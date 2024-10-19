@@ -1,7 +1,7 @@
 import {Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle} from "@/components/ui/card";
 import {GitHubLogoIcon, LinkedInLogoIcon, TwitterLogoIcon, InstagramLogoIcon, GlobeIcon} from '@radix-ui/react-icons';
-import VinnovateLogo from '/public/VinnovateIT-logo.png';
-import VinnovateLogoDark from '/public/VinnovateIT-logo-dark.png';
+import VinnovateLogo from '/public/images/VinnovateIT-logo.png';
+import VinnovateLogoDark from '/public/images/VinnovateIT-logo-dark.png';
 import ExportedImage from "next-image-export-optimizer";
 import React from "react";
 

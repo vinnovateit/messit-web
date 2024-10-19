@@ -1,7 +1,7 @@
 import React, {Dispatch, SetStateAction, useState} from 'react';
 import ExportedImage from "next-image-export-optimizer";
-import ManEmoji from "/public/man.png"
-import WomanEmoji from "/public/woman.png"
+import ManEmoji from "/public/images/man.png"
+import WomanEmoji from "/public/images/woman.png"
 
 interface HostelSelectionProps {
     onSelect: Dispatch<SetStateAction<string | null>>;
