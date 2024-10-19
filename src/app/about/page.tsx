@@ -2,7 +2,7 @@ import {Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle} f
 import {GitHubLogoIcon, LinkedInLogoIcon, TwitterLogoIcon, InstagramLogoIcon, GlobeIcon} from '@radix-ui/react-icons';
 import VinnovateLogo from '/public/VinnovateIT-logo.png';
 import VinnovateLogoDark from '/public/VinnovateIT-logo-dark.png';
-import Image from "next/image";
+import ExportedImage from "next-image-export-optimizer";
 import React from "react";
 
 const contributors = [
@@ -29,8 +29,8 @@ const About = () => {
             <h1 className="text-2xl text-[#53C0D3] font-bold dark:text-[#98E4FF] mb-2">About Us</h1>
             <Card className="mb-6">
                 <CardContent className="flex items-center place-content-around ">
-                    <Image src={VinnovateLogo} alt={"Men's hostel"} className="block dark:hidden mt-4 sm:w-52 w-32"/>
-                    <Image src={VinnovateLogoDark} alt={"Men's hostel"}
+                    <ExportedImage src={VinnovateLogo} alt={"Men's hostel"} className="block dark:hidden mt-4 sm:w-52 w-32"/>
+                    <ExportedImage src={VinnovateLogoDark} alt={"Men's hostel"}
                            className="hidden dark:block mt-4 sm:w-52 w-32"/>
                     <div className="grid grid-cols-2 gap-4 place-content-center">
                         <div><a href="https://vinnovateit.com" target="_blank"><GlobeIcon className="w-8 h-8"/></a>

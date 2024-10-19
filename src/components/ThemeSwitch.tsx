@@ -2,9 +2,9 @@
 
 import { useState, useEffect } from 'react';
 import { useTheme } from 'next-themes';
-import Image from "next/image";
-import sunIcon from "../../public/sun.png";
-import moonIcon from "../../public/moon.png";
+import ExportedImage from "next-image-export-optimizer";
+import sunIcon from "/public/sun.png";
+import moonIcon from "/public/moon.png";
 
 export default function ThemeSwitcher() {
   const [mounted, setMounted] = useState(false);
@@ -42,7 +42,7 @@ export default function ThemeSwitcher() {
         onClick={toggleTheme}
         aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
       >
-        <Image
+        <ExportedImage
           src={theme === 'light' ? moonIcon : sunIcon}
           alt="Theme Toggle Icon"
           height={20}

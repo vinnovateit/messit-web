@@ -1,13 +1,13 @@
-import Image from 'next/image';
+import ExportedImage from "next-image-export-optimizer";
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Calendar } from 'lucide-react';
-
+import logo from "/public/icons/icon-192.png";
 export default function Custom404() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-4 text-center">
       <div className="mb-8 flex items-center">
-        <Image src="/icons/icon-192.png" alt="Messit Logo" width={128} height={128} />
+        <ExportedImage src={logo} alt="Messit Logo" width={128} height={128} />
       </div>
       <h1 className="text-3xl font-bold mb-4">404 - Menu Not Found</h1>
       <p className="text-xl mb-8">Oops! This page isn&#39;t on today&#39;s menu.</p>
