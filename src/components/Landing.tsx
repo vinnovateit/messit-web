@@ -1,6 +1,6 @@
 'use client'
 import ExportedImage from "next-image-export-optimizer";
-import img from '/public/Character.svg'
+import img from '/public/Character-test.webp'
 import img1 from '../../public/Character_light.svg'
 import Link from "next/link";
 import {useRouter} from "next/navigation";
