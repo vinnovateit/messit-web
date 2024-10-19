@@ -3,7 +3,7 @@ import Calendar from "@/components/Calendar";
 import {Carousel, CarouselApi, CarouselContent, CarouselItem} from "@/components/ui/carousel";
 import {Skeleton} from "@/components/ui/skeleton";
 import MenuCard from "@/components/MenuCard";
-import {useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import Cookies from "js-cookie";
 import Sidebar from "@/components/sidebar";
 import LandingPage from "@/components/Landing";
@@ -90,6 +90,24 @@ export default function Home() {
       }
     }
   }, [data, currentDate]);
+
+  // QoL: Keyboard navigation
+  const handleKeyDown = useCallback((event: KeyboardEvent) => {
+    if (api) {
+      if (event.key === 'ArrowLeft') {
+        api.scrollPrev();
+      } else if (event.key === 'ArrowRight') {
+        api.scrollNext();
+      }
+    }
+  }, [api]);
+
+  useEffect(() => {
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [handleKeyDown]);
 
   useEffect(() => {
     if (api) {
