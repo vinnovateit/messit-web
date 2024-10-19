@@ -14,6 +14,7 @@ export default function LandingPage() {
       <div>
         <Image
           src={img}
+          priority={true}
           alt="Girl thinking about mess menu"
           className='w-[50vh] md:w-[70vh]'
         />
