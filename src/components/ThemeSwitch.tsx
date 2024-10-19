@@ -19,8 +19,10 @@ export default function ThemeSwitcher() {
   }
 
   const toggleTheme = () => {
-    setTheme(theme === 'light' ? 'dark' : 'light');
+    const newTheme = theme === 'light' ? 'dark' : theme === 'dark' ? 'light' : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'light' : 'dark');
+    setTheme(newTheme);
     // document.querySelector('meta[name="theme-color"]')!.setAttribute('content', theme === 'light' ? '#0B1120' : '#f8fafc' );
+    // no don't try to simplify this
     const metaTag = document.querySelector('meta[name="theme-color"]');
     if (theme === 'dark') {
       document
