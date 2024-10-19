@@ -22,7 +22,7 @@ const HostelSelection: React.FC<HostelSelectionProps> = ({onSelect}) => {
                 onClick={() => handleButtonClick('men')}
             >
                 <div className="flex flex-col">
-                    <ExportedImage src={ManEmoji} alt={"Men's hostel"} width={200}></ExportedImage>
+                    <ExportedImage src={ManEmoji} alt={"Men's hostel"} width={200} placeholder={'blur'}></ExportedImage>
                     Men&apos;s Hostel
                 </div>
             </button>
@@ -33,7 +33,7 @@ const HostelSelection: React.FC<HostelSelectionProps> = ({onSelect}) => {
                 onClick={() => handleButtonClick('ladies')}
             >
                 <div className="flex flex-col">
-                    <ExportedImage src={WomanEmoji} alt={"Ladies' hostel"} width={200}></ExportedImage>
+                    <ExportedImage src={WomanEmoji} alt={"Ladies' hostel"} width={200} placeholder={'blur'}></ExportedImage>
                     Ladies&apos;s Hostel
                 </div>
             </button>
