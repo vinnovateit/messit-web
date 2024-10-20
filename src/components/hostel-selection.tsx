@@ -1,7 +1,7 @@
 import React, {Dispatch, SetStateAction, useState} from 'react';
-import ManEmoji from "/public/man.png"
-import WomanEmoji from "/public/woman.png"
-import Image from "next/image";
+import ExportedImage from "next-image-export-optimizer";
+import ManEmoji from "/public/images/man.png"
+import WomanEmoji from "/public/images/woman.png"
 
 interface HostelSelectionProps {
     onSelect: Dispatch<SetStateAction<string | null>>;
@@ -22,7 +22,7 @@ const HostelSelection: React.FC<HostelSelectionProps> = ({onSelect}) => {
                 onClick={() => handleButtonClick('men')}
             >
                 <div className="flex flex-col">
-                    <Image src={ManEmoji} alt={"Men's hostel"} width={200}></Image>
+                    <ExportedImage src={ManEmoji} alt={"Men's hostel"} width={200} placeholder={'blur'}></ExportedImage>
                     Men&apos;s Hostel
                 </div>
             </button>
@@ -33,7 +33,7 @@ const HostelSelection: React.FC<HostelSelectionProps> = ({onSelect}) => {
                 onClick={() => handleButtonClick('ladies')}
             >
                 <div className="flex flex-col">
-                    <Image src={WomanEmoji} alt={"Ladies' hostel"} width={200}></Image>
+                    <ExportedImage src={WomanEmoji} alt={"Ladies' hostel"} width={200} placeholder={'blur'}></ExportedImage>
                     Ladies&apos;s Hostel
                 </div>
             </button>

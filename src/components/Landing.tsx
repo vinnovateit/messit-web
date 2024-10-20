@@ -1,6 +1,6 @@
 'use client'
-import Image from 'next/image';
-import img from '../../public/Character.svg'
+import ExportedImage from "next-image-export-optimizer";
+import img from '/public/Character-optim.svg'
 import img1 from '../../public/Character_light.svg'
 import Link from "next/link";
 import {useRouter} from "next/navigation";
@@ -12,8 +12,9 @@ export default function LandingPage() {
     <div className='h-screen flex flex-col gap-4 justify-center items-center'>
       <ThemeSwitcher />
       <div>
-        <Image
+        <ExportedImage
           src={img}
+          priority={true}
           alt="Girl thinking about mess menu"
           className='w-[50vh] md:w-[70vh]'
         />

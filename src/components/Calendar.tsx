@@ -1,29 +1,24 @@
-import { getDates } from "@/helpers/getDates";
-import { getDays } from "@/helpers/getDates";
-import { useState, useEffect, useRef } from "react";
-import Image from "next/image";
+import {getDates, getDays} from "@/helpers/getDates";
+import {useEffect, useState} from "react";
 import {
   Carousel,
+  type CarouselApi,
   CarouselContent,
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel"
-import { type CarouselApi } from "@/components/ui/carousel"
 
 interface CalendarProps {
-  onDateSelect: (date: string) => void;
   currentDateIndex: number;
   onSelectDayChange: (index: number) => void;
 }
 
-export default function Calendar({ onDateSelect, currentDateIndex, onSelectDayChange }: CalendarProps) {
+export default function Calendar({currentDateIndex, onSelectDayChange}: CalendarProps) {
   const [dayArray, setDayArray] = useState<string[]>([]);
   const [dateArray, setDateArray] = useState<string[]>([]);
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
-  const [api, setApi] = useState<CarouselApi>()
-  // const [currentDateIndexState, setCurrentDateIndexState] = useState<number>(currentDateIndex);
-
+  const [api, setApi] = useState<CarouselApi>();
 
   useEffect(() => {
     const dates = getDates();
@@ -35,7 +30,7 @@ export default function Calendar({ onDateSelect, currentDateIndex, onSelectDayCh
     setSelectedDate(dates[currentDateIndex]);
     if (api) {
       const slidesInView = api.slidesInView();
-      if(!slidesInView.includes(currentDateIndex)) {
+      if (!slidesInView.includes(currentDateIndex)) {
         api.scrollTo(currentDateIndex);
       }
     }
@@ -43,14 +38,12 @@ export default function Calendar({ onDateSelect, currentDateIndex, onSelectDayCh
 
   const handleDateSelect = (date: string) => {
     setSelectedDate(date);
-    onDateSelect(date); //todo: unneeded?
     onSelectDayChange(dateArray.indexOf(date));
   };
 
   return (
     <Carousel className="w-3/4" setApi={setApi}
               opts={{
-                // startIndex: currentDateIndex,
                 dragFree: true,
                 align: "start",
               }}>
@@ -73,8 +66,8 @@ export default function Calendar({ onDateSelect, currentDateIndex, onSelectDayCh
           </CarouselItem>
         ))}
       </CarouselContent>
-      <CarouselPrevious />
-      <CarouselNext />
+      <CarouselPrevious/>
+      <CarouselNext/>
     </Carousel>
   );
 }

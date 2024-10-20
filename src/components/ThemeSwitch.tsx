@@ -2,9 +2,9 @@
 
 import { useState, useEffect } from 'react';
 import { useTheme } from 'next-themes';
-import Image from "next/image";
-import sunIcon from "../../public/sun.png";
-import moonIcon from "../../public/moon.png";
+import ExportedImage from "next-image-export-optimizer";
+import sunIcon from "/public/images/sun.png";
+import moonIcon from "/public/images/moon.png";
 
 export default function ThemeSwitcher() {
   const [mounted, setMounted] = useState(false);
@@ -19,8 +19,10 @@ export default function ThemeSwitcher() {
   }
 
   const toggleTheme = () => {
-    setTheme(theme === 'light' ? 'dark' : 'light');
+    const newTheme = theme === 'light' ? 'dark' : theme === 'dark' ? 'light' : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'light' : 'dark');
+    setTheme(newTheme);
     // document.querySelector('meta[name="theme-color"]')!.setAttribute('content', theme === 'light' ? '#0B1120' : '#f8fafc' );
+    // no don't try to simplify this
     const metaTag = document.querySelector('meta[name="theme-color"]');
     if (theme === 'dark') {
       document
@@ -40,7 +42,7 @@ export default function ThemeSwitcher() {
         onClick={toggleTheme}
         aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
       >
-        <Image
+        <ExportedImage
           src={theme === 'light' ? moonIcon : sunIcon}
           alt="Theme Toggle Icon"
           height={20}
