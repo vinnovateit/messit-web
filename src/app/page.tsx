@@ -42,7 +42,15 @@ export default function Home() {
       if (!jsonData || !jsonData.menu || jsonData.menu.length === 0) {
         throw new Error('Invalid or empty data');
       }
-      setData(jsonData);
+
+      // Ensure all dates in the month have a menu entry
+      const dates = getDates();
+      const menuData = dates.map(date => {
+        const menuForDate = jsonData.menu.find((menu: { date: string }) => menu.date === date);
+        return menuForDate || { date, menu: [] };
+      });
+
+      setData({ ...jsonData, menu: menuData });
       setError(null);
     } catch (error) {
       console.error('Error fetching data:', error);
