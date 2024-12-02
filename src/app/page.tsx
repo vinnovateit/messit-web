@@ -46,10 +46,11 @@ export default function Home() {
       // Ensure all dates in the month have a menu entry
       const dates = getDates();
       const menuData = dates.map(date => {
-        const menuForDate = jsonData.menu.find((menu: { date: string }) => menu.date === date);
+        const menuForDate = jsonData.menu.find((menu: { date: string }) => menu?.date === date);
         return menuForDate || { date, menu: [] };
       });
 
+      // console.log('Processed menu data:', menuData);
       setData({ ...jsonData, menu: menuData });
       setError(null);
     } catch (error) {
