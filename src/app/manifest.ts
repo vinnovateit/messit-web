@@ -1,4 +1,6 @@
 import { MetadataRoute } from 'next';
+ export const dynamic = 'force-static';
+// https://github.com/vercel/next.js/discussions/73022
 
 export default function manifest(): MetadataRoute.Manifest {
     return {
