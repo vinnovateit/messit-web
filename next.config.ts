@@ -1,8 +1,9 @@
 import withSerwistInit from "@serwist/next";
 import { execSync } from 'child_process';
+import type { Configuration as WebpackConfig } from 'webpack';
+import type { NextConfig } from 'next';
 
-/** @type {import('next').NextConfig} */
-const nextConfig = {
+const nextConfig: NextConfig = {
     output: 'export',
     images: {
         loader: "custom",
@@ -19,7 +20,7 @@ const nextConfig = {
         nextImageExportOptimizer_generateAndUseBlurImages: "true",
         nextImageExportOptimizer_remoteImageCacheTTL: "0",
     },
-    webpack: (config, { isServer }) => {
+    webpack: (config: WebpackConfig, { isServer }: { isServer: boolean }): WebpackConfig => {
         // Run the json update script during build
         if (isServer) {
             console.log('Updating menu data...');
