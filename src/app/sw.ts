@@ -25,6 +25,19 @@ const customCache = [
     //     }),
     // },
     {
+        matcher: /\/manifest\.webmanifest$/i,
+        handler: new StaleWhileRevalidate({
+            cacheName: "manifest",
+            plugins: [
+                new ExpirationPlugin({
+                    maxEntries: 1,
+                    maxAgeSeconds: 24 * 60 * 60, // 24 hours
+                    maxAgeFrom: "last-used",
+                }),
+            ],
+        }),
+    },
+    {
         matcher: /\.(?:json|xml|csv)$/i,
         handler: new StaleWhileRevalidate({
             cacheName: "static-data-assets",
