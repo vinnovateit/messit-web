@@ -11,40 +11,14 @@ declare global {
 declare const self: ServiceWorkerGlobalScope;
 
 const customCache = [
-    // {
-    //     matcher: /\/_next\/data\/.+\/.+\.json$/i,
-    //     handler: new StaleWhileRevalidate({
-    //         cacheName: "next-data",
-    //         plugins: [
-    //             new ExpirationPlugin({
-    //                 maxEntries: 32,
-    //                 maxAgeSeconds: 24 * 60 * 60, // 24 hours
-    //                 maxAgeFrom: "last-used",
-    //             }),
-    //         ],
-    //     }),
-    // },
     {
-        matcher: /\/manifest\.webmanifest$/i,
+        matcher: /.*/i,
         handler: new StaleWhileRevalidate({
-            cacheName: "manifest",
+            cacheName: "all-routes",
             plugins: [
                 new ExpirationPlugin({
-                    maxEntries: 1,
-                    maxAgeSeconds: 24 * 60 * 60, // 24 hours
-                    maxAgeFrom: "last-used",
-                }),
-            ],
-        }),
-    },
-    {
-        matcher: /\.(?:json|xml|csv)$/i,
-        handler: new StaleWhileRevalidate({
-            cacheName: "static-data-assets",
-            plugins: [
-                new ExpirationPlugin({
-                    maxEntries: 64,
-                    maxAgeSeconds: 20 * 24 * 60 * 60, // 20 days
+                    maxEntries: 512,
+                    maxAgeSeconds: 25 * 24 * 60 * 60, // 25 days
                     maxAgeFrom: "last-used",
                 }),
             ],
