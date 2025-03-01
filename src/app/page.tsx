@@ -210,7 +210,7 @@ export default function Home() {
                                 : menuItem.type === 2
                                   ? '12:30 PM - 2:30 PM'
                                   : menuItem.type === 3
-                                    ? '4:30 PM - 6:00 PM'
+                                    ? '4:30 PM - 6:15 PM'
                                     : '7:00 PM - 9:00 PM'
                             }
                           />
