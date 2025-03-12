@@ -12,6 +12,7 @@ import InstallPrompt from "@/components/InstallPrompt";
 
 export default function Home() {
   const [showMainContent, setShowMainContent] = useState(false);
+  const [showBanner, setShowBanner] = useState(true);
   const [currentDateIndex, setCurrentDateIndex] = useState<number>(0);
   const [dateArray, setDateArray] = useState<string[]>([]);
   const [api, setApi] = useState<CarouselApi>();
@@ -86,6 +87,19 @@ export default function Home() {
   }, [hostel, mess]);
 
   useEffect(() => {
+    const bannerDismissed = Cookies.get('bannerDismissed');
+    if (bannerDismissed) {
+      setShowBanner(false);
+    }
+  }, []);
+
+  const dismissBanner = () => {
+    setShowBanner(false);
+    // Set cookie to expire in 24 hours ...
+    Cookies.set('bannerDismissed', 'true', { expires: 1 });
+  };
+
+  useEffect(() => {
     // Check if menu belongs to the current month
     if (data) {
       const currentMonthMenus = data.menu.filter((menu: { date: string | number | Date; }) => {
@@ -151,6 +165,31 @@ export default function Home() {
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-around laptop:p-16 gap-[2rem] mobile:p-8">
+      {showBanner && (
+        <div className="w-full relative overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-r from-[#53C0D3] to-[#98E4FF] opacity-20"></div>
+          <div className="relative p-6 border-2 border-[#53C0D3] dark:border-[#98E4FF] rounded-xl backdrop-blur-sm">
+            <button 
+              onClick={dismissBanner}
+              className="absolute top-2 right-2 text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-white"
+              aria-label="Close banner"
+            >
+              ✕
+            </button>
+            <div className="text-center space-y-3">
+              <p className="text-lg font-semibold leading-relaxed tracking-wide text-gray-800 dark:text-white">
+                Want to cook your own apps and build the next MessIT? ✨
+              </p>
+              <p className="text-base font-medium text-gray-700 dark:text-gray-100">
+                Register on VTOP:{" "}
+                <span className="bg-[#53C0D3]/10 dark:bg-[#98E4FF]/10 px-3 py-1.5 rounded-lg border border-[#53C0D3]/20 dark:border-[#98E4FF]/20 inline-block mt-1">
+                  Club Registration &gt; 112 &gt; VinnovateIT Club
+                </span>
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
       <InstallPrompt />
       <div className="fixed top-2 left-2 z-50">
         <Sidebar setShowMainContent={setShowMainContent}/>
