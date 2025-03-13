@@ -166,7 +166,7 @@ export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-around laptop:p-16 gap-[2rem] mobile:p-8">
       {showBanner && (
-        <div className="w-full relative overflow-hidden">
+        <div className="w-full laptop:w-3xs relative overflow-hidden -mb-16">
           <div className="absolute inset-0 bg-gradient-to-r from-[#53C0D3] to-[#98E4FF] opacity-20 rounded-xl"></div>
           <div className="relative p-6 border-2 border-[#53C0D3] dark:border-[#98E4FF] rounded-xl backdrop-blur-sm">
             <button 
