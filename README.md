@@ -118,7 +118,7 @@ The production environment is currently deployed on Cloudflare Pages. To set up 
    ```sh
    npm run dev
    ```
-4. For production, 
+4. For production
    ```sh
    npm run build
    # then serve the output dir with program of your choice, eg 
