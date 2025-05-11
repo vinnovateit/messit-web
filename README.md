@@ -129,7 +129,7 @@ The production environment is currently deployed on Cloudflare Pages. To set up 
 ### Top contributors:
 
 <a href="https://github.com/vinnovateit/messit-web/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=vinnovateit/messit-web" alt="contrib.rocks image" />
+  <img src="https://contrib.rocks/image/?repo=vinnovateit/messit-web" alt="contrib.rocks image" />
 </a>
 
 
