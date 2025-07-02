@@ -14,7 +14,7 @@
 <h3 align="center">Messit web</h3>
 
   <p align="center">
-    See your mess menu on the go
+    See your mess menu on the go!
     <br />
     <br />
     <a href="https://messit.vinnovateit.com/">Check it out!</a>
