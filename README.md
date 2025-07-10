@@ -99,7 +99,7 @@ See the [open issues](https://github.com/vinnovateit/messit-web/issues) for a fu
 
 <!-- GETTING STARTED -->
 ## Getting Started
-The production environment is currently deployed on Cloudflare Pages. To set up the development environment, follow the steps below.
+The production environment is currently deployed on Cloudflare Pages. To set up the development environment.. follow the steps below.
 ### Prerequisites
 * nodejs (tested on v22)
 * npm
