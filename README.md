@@ -11,7 +11,7 @@
     </picture>
   </a>
 
-<h3 align="center">Messit web</h3>
+<h3 align="center">Messit web</h3> 
 
   <p align="center">
     See your mess menu on the go!!
