@@ -1,17 +1,46 @@
-const axios = require('axios');
+const { MongoClient, ServerApiVersion } = require("mongodb");
 const fs = require('fs').promises;
 const path = require('path');
+const dotenv = require("dotenv");
 
-const API_BASE_URL = 'https://messit-server-vinnovateit.vercel.app';
-// const API_BASE_URL = 'http://localhost:8000';
+dotenv.config();
 
 async function fetchMenuData(hostel, mess) {
+  const client = new MongoClient(process.env.MONGODB_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    serverApi: ServerApiVersion.v1,
+  });
+
   try {
-    const response = await axios.get(`${API_BASE_URL}/?hostel=${hostel}&mess=${mess}`);
-    return response.data;
+    await client.connect();
+    const collection = client.db("client").collection("menu");
+
+    const data = await collection.findOne({
+      hostel: Number(hostel),
+      mess: Number(mess),
+    });
+
+    await client.close();
+
+    if (!data) {
+      return {
+        hostel: 0,
+        mess: 0,
+        menu: [],
+      };
+    } else {
+      const { _id, ...result } = data;
+      return result;
+    }
   } catch (error) {
     console.error(`Error fetching data for hostel ${hostel}, mess ${mess}:`, error);
-    return null;
+    await client.close();
+    return {
+      hostel: 0,
+      mess: 0,
+      menu: [],
+    };
   }
 }
 
