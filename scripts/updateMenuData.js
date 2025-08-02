@@ -7,8 +7,6 @@ dotenv.config();
 
 async function fetchMenuData(hostel, mess) {
   const client = new MongoClient(process.env.MONGODB_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
     serverApi: ServerApiVersion.v1,
   });
 
