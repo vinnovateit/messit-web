@@ -7,7 +7,8 @@
     "build": "next build && next-image-export-optimizer",
     "start": "next start",
     "lint": "next lint",
-    "update-menu-data": "node scripts/updateMenuData.js"
+    "update-menu-data": "node scripts/updateMenuData.js",
+    "update-banner-data": "node scripts/updateBannerData.js"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.4",

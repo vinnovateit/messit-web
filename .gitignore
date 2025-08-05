@@ -40,6 +40,9 @@ next-env.d.ts
 /public/sw.js
 # menu fetch
 /public/menu-data/
+# banner fetch
+/public/banner-data/
+/public/banners/
 
 # next-image-export-optimizer
 /public/images/next-image-export-optimizer-hashes.json

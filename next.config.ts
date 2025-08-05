@@ -30,6 +30,13 @@ const nextConfig: NextConfig = {
                 console.error('Failed to update menu data:', error);
                 process.exit(1);
             }
+            console.log('Updating banner data...');
+            try {
+                execSync('node scripts/updateBannerData.js', { stdio: 'inherit' });
+            } catch (error) {
+                console.error('Failed to update banner data:', error);
+                process.exit(1);
+            }
         }
         return config;
     },
