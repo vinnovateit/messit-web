@@ -73,18 +73,37 @@ async function processBannerData(banners) {
         console.log(`Extracted image: ${imageFileName}`);
       }
 
-      const processedBanner = {
-        id: banner._id?.$oid || banner._id?.toString() || `banner-${i}`,
-        title: banner.title || '',
-        shortdescription: banner.shortdescription || '',
-        longdescription: banner.longdescription || '',
-        imagePath: imagePath,
-        buttontext: banner.buttontext || '',
-        buttonlink: banner.buttonlink || '',
-        priority: banner.priority || 0,
-        eventdate: banner.eventdate?.$date || banner.eventdate || null,
-        createdAt: banner.sourceinfo?.createdAt?.$date || banner.sourceinfo?.createdAt || null
-      };
+      // Transparently copy banner data
+      const processedBanner = { ...banner };
+      
+      // special MongoDB fields
+      if (banner._id) {
+        processedBanner.id = banner._id.$oid || banner._id.toString() || `banner-${i}`;
+        delete processedBanner._id;
+      } else {
+        processedBanner.id = `banner-${i}`;
+      }
+      
+      // replace binary image with imagePath
+      if (processedBanner.image) {
+        delete processedBanner.image;
+        processedBanner.imagePath = imagePath;
+      }
+      
+      // date objects to ISO strings
+      if (processedBanner.eventdate && processedBanner.eventdate.$date) {
+        processedBanner.eventdate = processedBanner.eventdate.$date;
+      }
+      
+      // nested sourceinfo dates
+      if (processedBanner.sourceinfo && processedBanner.sourceinfo.createdAt) {
+        if (processedBanner.sourceinfo.createdAt.$date) {
+          processedBanner.createdAt = processedBanner.sourceinfo.createdAt.$date;
+        } else {
+          processedBanner.createdAt = processedBanner.sourceinfo.createdAt;
+        }
+        delete processedBanner.sourceinfo;
+      }
 
       processedBanners.push(processedBanner);
     } catch (error) {
