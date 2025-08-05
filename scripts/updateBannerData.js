@@ -95,14 +95,13 @@ async function processBannerData(banners) {
         processedBanner.eventdate = processedBanner.eventdate.$date;
       }
       
-      // nested sourceinfo dates
-      if (processedBanner.sourceinfo && processedBanner.sourceinfo.createdAt) {
-        if (processedBanner.sourceinfo.createdAt.$date) {
-          processedBanner.createdAt = processedBanner.sourceinfo.createdAt.$date;
-        } else {
-          processedBanner.createdAt = processedBanner.sourceinfo.createdAt;
-        }
-        delete processedBanner.sourceinfo;
+      if (processedBanner.sourceinfo) {
+        Object.keys(processedBanner.sourceinfo).forEach(key => {
+          const value = processedBanner.sourceinfo[key];
+          if (value && value.$date) {
+            processedBanner.sourceinfo[key] = value.$date;
+          }
+        });
       }
 
       processedBanners.push(processedBanner);
@@ -115,7 +114,7 @@ async function processBannerData(banners) {
     if (a.priority !== b.priority) {
       return b.priority - a.priority;
     }
-    return new Date(b.createdAt || 0) - new Date(a.createdAt || 0);
+    return new Date(b.sourceinfo?.createdAt || 0) - new Date(a.sourceinfo?.createdAt || 0);
   });
 
   return processedBanners;
