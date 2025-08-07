@@ -74,15 +74,12 @@ async function processBannerData(banners) {
       }
 
       // Transparently copy banner data
-      const processedBanner = { ...banner };
+      const processedBanner = {
+        id: banner._id?.$oid || banner._id?.toString() || `banner-${i}`,
+        ...banner,
+      };
       
-      // special MongoDB fields
-      if (banner._id) {
-        processedBanner.id = banner._id.$oid || banner._id.toString() || `banner-${i}`;
-        delete processedBanner._id;
-      } else {
-        processedBanner.id = `banner-${i}`;
-      }
+      delete processedBanner._id;
       
       // replace binary image with imagePath
       if (processedBanner.image) {
