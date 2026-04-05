@@ -119,11 +119,16 @@ async function processBannerData(banners) {
 
 async function updateBannerData() {
   console.log('Fetching banner data from MongoDB...');
+
+  const publicDataDir = path.join(process.cwd(), 'public', 'banner-data');
+  const campaignsFilePath = path.join(publicDataDir, 'campaigns.json');
+  await fs.mkdir(publicDataDir, { recursive: true });
   
   const banners = await fetchBannerData();
   
   if (banners.length === 0) {
-    console.log('No banner data found');
+    await fs.writeFile(campaignsFilePath, JSON.stringify([], null, 2));
+    console.log('No banner data found. Cleared campaigns.json');
     return;
   }
 
@@ -131,7 +136,6 @@ async function updateBannerData() {
 
   const processedBanners = await processBannerData(banners);
 
-  const campaignsFilePath = path.join(process.cwd(), 'public', 'banner-data', 'campaigns.json');
   await fs.writeFile(campaignsFilePath, JSON.stringify(processedBanners, null, 2));
 
   console.log(`Updated campaigns.json with ${processedBanners.length} banners`);
