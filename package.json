@@ -4,11 +4,12 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build && next-image-export-optimizer",
+    "build": "npm run update-icon-data && next build && next-image-export-optimizer",
     "start": "next start",
     "lint": "next lint",
     "update-menu-data": "node scripts/updateMenuData.js",
-    "update-banner-data": "node scripts/updateBannerData.js"
+    "update-banner-data": "node scripts/updateBannerData.js",
+    "update-icon-data": "node scripts/updateIconData.js"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.4",
