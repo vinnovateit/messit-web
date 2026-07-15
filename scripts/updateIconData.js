@@ -17,7 +17,27 @@ async function fetchIconData() {
     const icons = await collection.find({}).toArray();
 
     await client.close();
-    return icons;
+
+    if (!icons || icons.length === 0) {
+      return [];
+    }
+
+    // Filter active icons based on dates
+    const now = new Date();
+    const activeIcons = icons.filter((icon) => {
+      const startDate = icon.startdate ? new Date(icon.startdate) : null;
+      const endDate = icon.enddate ? new Date(icon.enddate) : null;
+
+      if (startDate && startDate > now) return false;
+      if (endDate && endDate < now) return false;
+      return true;
+    });
+
+    return activeIcons.map((icon) => ({
+      iconName: icon.iconname || icon.iconName,
+      startDate: icon.startdate || icon.startDate,
+      endDate: icon.enddate || icon.endDate,
+    }));
   } catch (error) {
     console.error('Error fetching icon data:', error);
     await client.close();
@@ -25,53 +45,25 @@ async function fetchIconData() {
   }
 }
 
-async function processIconData(icons) {
-  const publicDir = path.join(process.cwd(), 'public');
-  const iconDataDir = path.join(publicDir, 'icon-data');
-  const publicIconsJson = path.join(publicDir, 'icons.json');
-
-  await fs.mkdir(iconDataDir, { recursive: true });
-
-  // Filter active icons based on dates
-  const now = new Date();
-  const activeIcons = icons.filter(icon => {
-    const startDate = icon.startDate ? new Date(icon.startDate) : null;
-    const endDate = icon.endDate ? new Date(icon.endDate) : null;
-    
-    if (startDate && startDate > now) return false;
-    if (endDate && endDate < now) return false;
-    return true;
-  });
-
-  const iconData = activeIcons.map(icon => ({
-    iconName: icon.iconName,
-    startDate: icon.startDate,
-    endDate: icon.endDate,
-  }));
-
-  // Write to public/icon-data/icons.json
-  await fs.writeFile(
-    path.join(iconDataDir, 'icons.json'),
-    JSON.stringify(iconData, null, 2)
-  );
-
-  // Also write to public/icons.json for direct access at /icons.json
-  await fs.writeFile(
-    publicIconsJson,
-    JSON.stringify(iconData, null, 2)
-  );
-
-  console.log(`Updated icon-data/icons.json with ${iconData.length} active icons`);
-  console.log(`Updated icons.json with ${iconData.length} active icons`);
-}
-
-async function main() {
+async function updateIconData() {
   console.log('Fetching icon data from MongoDB...');
+
+  const publicDir = path.join(process.cwd(), 'public');
+  const iconsFilePath = path.join(publicDir, 'icons.json');
+  await fs.mkdir(publicDir, { recursive: true });
+
   const icons = await fetchIconData();
-  
-  await processIconData(icons);
-  
+
+  if (icons.length === 0) {
+    await fs.writeFile(iconsFilePath, JSON.stringify([], null, 2));
+    console.log('No icon data found. Created empty icons.json');
+    return;
+  }
+
+  await fs.writeFile(iconsFilePath, JSON.stringify(icons, null, 2));
+
+  console.log(`Updated icons.json with ${icons.length} active icons`);
   console.log('Icon data update complete');
 }
 
-main().catch(console.error);
+updateIconData().catch(console.error);
