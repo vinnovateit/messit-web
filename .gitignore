@@ -43,6 +43,9 @@ next-env.d.ts
 # banner fetch
 /public/banner-data/
 /public/banners/
+# content fetch
+/public/content-data/
+/public/content-media/
 
 # next-image-export-optimizer
 /public/images/next-image-export-optimizer-hashes.json
