@@ -51,3 +51,7 @@ next-env.d.ts
 /public/images/next-image-export-optimizer-hashes.json
 /public/images/nextImageExportOptimizer
 /public/nextImageExportOptimizer
+
+# app config fetch
+/public/config-data/
+/public/config-media/

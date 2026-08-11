@@ -10,6 +10,7 @@
     "update-menu-data": "node scripts/updateMenuData.js",
     "update-banner-data": "node scripts/updateBannerData.js",
     "update-content-data": "node scripts/updateContentData.js",
+    "update-app-config": "node scripts/updateAppConfigData.js",
     "update-icon-data": "node scripts/updateIconData.js"
   },
   "dependencies": {
