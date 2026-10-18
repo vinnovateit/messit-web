@@ -58,6 +58,13 @@ const nextConfig: NextConfig = {
                 console.error('Failed to update icon data:', error);
                 process.exit(1);
             }
+            console.log('Updating meal timings...');
+            try {
+                execSync('node scripts/updateMealTimingsData.js', { stdio: 'inherit' });
+            } catch (error) {
+                console.error('Failed to update meal timings:', error);
+                process.exit(1);
+            }
         }
         return config;
     },

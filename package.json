@@ -11,7 +11,8 @@
     "update-banner-data": "node scripts/updateBannerData.js",
     "update-content-data": "node scripts/updateContentData.js",
     "update-app-config": "node scripts/updateAppConfigData.js",
-    "update-icon-data": "node scripts/updateIconData.js"
+    "update-icon-data": "node scripts/updateIconData.js",
+    "update-meal-timings-data": "node scripts/updateMealTimingsData.js"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.4",
