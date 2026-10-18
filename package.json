@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "npm run update-icon-data && next build && next-image-export-optimizer",
+    "build": "next build && next-image-export-optimizer",
     "start": "next start",
     "lint": "next lint",
     "update-menu-data": "node scripts/updateMenuData.js",

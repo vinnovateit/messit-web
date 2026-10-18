@@ -51,6 +51,13 @@ const nextConfig: NextConfig = {
                 console.error('Failed to update appearance config:', error);
                 process.exit(1);
             }
+            console.log('Updating icon data...');
+            try {
+                execSync('node scripts/updateIconData.js', { stdio: 'inherit' });
+            } catch (error) {
+                console.error('Failed to update icon data:', error);
+                process.exit(1);
+            }
         }
         return config;
     },
