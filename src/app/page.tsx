@@ -44,6 +44,18 @@ export default function Home() {
         throw new Error('Invalid or empty data');
       }
 
+      // check if mess menu is updated
+      const currentYearMonth = `${currentDate.getFullYear()}-${String(currentDate.getMonth() + 1).padStart(2, '0')}`;
+      const hasCurrentMonthData = jsonData.menu.some(
+        (item: any) => item.date?.startsWith(currentYearMonth) && item.menu?.length > 0
+      );
+
+      if (!hasCurrentMonthData) {
+        setError('No menu available for this month');
+        setData(null);
+        return;
+      }
+
       // Ensure all dates in the month have a menu entry
       const dates = getDates();
       const menuData = dates.map(date => {
@@ -98,21 +110,6 @@ export default function Home() {
     // Set cookie to expire in 24 hours ...
     Cookies.set('bannerDismissed', 'true', { expires: 1 });
   };
-
-  useEffect(() => {
-    // Check if menu belongs to the current month
-    if (data) {
-      const currentMonthMenus = data.menu.filter((menu: { date: string | number | Date; }) => {
-        const menuDate = new Date(menu.date);
-        return menuDate.getMonth() === currentDate.getMonth();
-      });
-
-      // If no menu for the month, throw error
-      if (!currentMonthMenus || currentMonthMenus.length === 0) {
-        setError('No menu available');
-      }
-    }
-  }, [data, currentDate]);
 
   // QoL: Keyboard navigation
   const handleKeyDown = useCallback((event: KeyboardEvent) => {
